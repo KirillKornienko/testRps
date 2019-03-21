@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.IO;
 using ImageDraw = System.Drawing;
+using SETTINGS = Properties.Settings.Default;
 
 namespace GameWPF
 {
@@ -92,7 +93,7 @@ namespace GameWPF
             try
             {
                 Textures = new Dictionary<string, ImageDraw.Image>();
-                Textures.Add("Bog", ImageDraw.Image.FromFile("sprites/Bog.jpg"));
+                Textures.Add(Properties.Settings.Default.TEXTURES_BOG, ImageDraw.Image.FromFile("sprites/Bog.jpg"));
                 Textures.Add("Player", ImageDraw.Image.FromFile("sprites/RedPlayer.png"));
                 Textures.Add("Grs", ImageDraw.Image.FromFile("sprites/Grass.jpg"));
                 Textures.Add("Grd", ImageDraw.Image.FromFile("sprites/Ground.jpg"));
