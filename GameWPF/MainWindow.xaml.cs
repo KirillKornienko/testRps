@@ -122,8 +122,7 @@ namespace GameWPF
         public void MenuDemo()
         {
             EnumMap = new Dictionary<int, string>();
-            BitmapImg.MouseLeftButtonDown += MouseClickMenu;
-            var files = Directory.GetFiles("maps");
+
             int y = 0;
             graphics.DrawString("Maps:", arial18, Brushes.White, new PointF(0, 0));
             graphics.DrawString("Name:", arial18, Brushes.White, new PointF(250, 0));
@@ -131,21 +130,42 @@ namespace GameWPF
             graphics.DrawString("Players:", arial18, Brushes.White, new PointF(750, 0));
 
 
-            foreach (var s in files) {
-                if (s.Split(new char[] { '.' }).Last() == "map")
-                {
-                    var file = File.OpenText(s);
-                    graphics.DrawString(s.Split(new char[] { '\\' }).Last(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(0, y += 20));
-                    graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(250, y));
-                    graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(500, y));
-                    graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(750, y));
-                    EnumMap.Add(y / 20, s);     //"y" начинается с 1
-                    file.Close();
-                }
+            foreach (var s in GetMapList()) {
+                var file = File.OpenText(s);
+                graphics.DrawString(s.Split(new char[] { '\\' }).Last(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(0, y += 20));
+                graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(250, y));
+                graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(500, y));
+                graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(750, y));
+                EnumMap.Add(y / 20, s);     //"y" начинается с 1
+                file.Close();
             }
             graphics.Flush();
 
+            BitmapImg.MouseLeftButtonDown += MouseClickMenu;
+
             BitmapImg.Source = BitmapToImageSource(bitmapobj);
+        }
+
+        public List<string> GetMapList()
+        {
+            try
+            {
+                string directory = Properties.Settings.Default.MAPS_DIRECTORY_NAME;
+                List<string> maps = new List<string>();
+
+                foreach (var file in Directory.GetFiles(directory))
+                {
+                    if (Path.GetExtension(file) == Properties.Settings.Default.MAPS_EXTENSION)
+                        maps.Add(file);
+                }
+                maps.Reverse();
+                return maps;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error loading map list. \n" + e.Message);
+                throw new Exception();
+            }
         }
 
         private void MouseClickMenu(object sender, MouseButtonEventArgs e)
@@ -263,6 +283,54 @@ namespace GameWPF
         }
 
         public void LoadMap(string[] GlobalMap)
+        {
+            //GlobalMap.
+
+            GlobalCellInfo = new MapCellInfo[MapInfo.Max_width, MapInfo.Max_height];
+            for (int y = 0; y < MapInfo.Max_height; y++)
+            {
+                for (int x = 0; x < MapInfo.Max_width; x++)
+                {
+                    if (GlobalMap[y * MapInfo.Max_width + x].Split(',').Length == 1)
+                        GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), GlobalMap[y * MapInfo.Max_width + x]));
+                    else
+                    {
+                        var tmp = GlobalMap[y * MapInfo.Max_width + x].Split(',');
+                        Buildings building;
+                        Mobs mob;
+                        Items item;
+                        if (Enum.TryParse(tmp[1], out building))
+                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), building);
+                        else if (Enum.TryParse(tmp[1], out mob))
+                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), mob);
+                        else if (Enum.TryParse(tmp[1], out item))
+                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), item);
+                    }
+                }
+            }
+
+            min_y_border = (int)grid.ActualHeight / 11;
+            max_y_border = (int)grid.ActualHeight * 10 / 11;
+            min_x_border = (int)FirstColumn.ActualWidth / 11;
+            max_x_border = (int)FirstColumn.ActualWidth * 10 / 11;
+            mouse_move = false;
+
+            if (!LoadTextures())
+            {
+                BitmapImg.MouseLeftButtonDown += MouseClickMenu;
+                return;
+            }
+            SetEvents();
+            Game();
+            Rendering();
+
+            //Player:
+            PlayerInfo.Standart_move = PlayerInfo.Max_move = 100;
+            PlayerInfo.Move = PlayerInfo.Max_move;
+
+        }
+
+        public unsafe void LoadMapUnsafe(string[] GlobalMap)
         {
             //GlobalMap.
 
