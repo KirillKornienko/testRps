@@ -9,7 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.IO;
 using ImageDraw = System.Drawing;
-using SETTINGS = Properties.Settings.Default;
+using Settings = GameWPF.Properties.Settings;
+
 
 namespace GameWPF
 {
@@ -28,6 +29,7 @@ namespace GameWPF
         Dictionary<string, CreatureInfo> ArmyInfo;
         Dictionary<string, HeroesInfo> HeroInfo;
         Dictionary<int, string> EnumMap;
+        
         Font arial18 = new Font(new FontFamily("Arial"), 18);
         string map_filepath;
 
@@ -53,17 +55,8 @@ namespace GameWPF
             Loaded += MainWindow_Loaded;
         }
 
-        private void MainWindow_Loaded(object sender, EventArgs e) {
-
-            /*Button button = new Button();
-            button.Width = 100;
-            button.Height = 100;
-            button.Content = "KGF";
-            button.VerticalAlignment = VerticalAlignment.Top;
-            button.Visibility = Visibility.Visible;
-            button.HorizontalAlignment = HorizontalAlignment.Left;
-            UniformGr.Children.Add(button);
-            */
+        private void MainWindow_Loaded(object sender, EventArgs e)
+        {
             Label1.Content = "Ширина: " + FirstColumn.ActualWidth;
             Label2.Content = "Высота: " + grid.ActualHeight;
             Label3.Content = "Количество по ширине " + FirstColumn.ActualWidth / 64;
@@ -88,27 +81,24 @@ namespace GameWPF
             MenuDemo();
         }
 
-        private bool LoadTextures()
+        private bool LoadTextures(string[] texture_codes)
         {
             try
             {
                 Textures = new Dictionary<string, ImageDraw.Image>();
-                Textures.Add(Properties.Settings.Default.TEXTURES_BOG, ImageDraw.Image.FromFile("sprites/Bog.jpg"));
-                Textures.Add("Player", ImageDraw.Image.FromFile("sprites/RedPlayer.png"));
-                Textures.Add("Grs", ImageDraw.Image.FromFile("sprites/Grass.jpg"));
-                Textures.Add("Grd", ImageDraw.Image.FromFile("sprites/Ground.jpg"));
-                Textures.Add("Snd", ImageDraw.Image.FromFile("sprites/Sand.jpg"));
-                Textures.Add("Snw", ImageDraw.Image.FromFile("sprites/Snow.jpg"));
-                Textures.Add("Wtr", ImageDraw.Image.FromFile("sprites/Water.jpg"));
-                Textures.Add("NULL", ImageDraw.Image.FromFile("sprites/Emptiness.jpg"));
-                Textures.Add("Lav", ImageDraw.Image.FromFile("sprites/Lava.jpg"));
-
-                Textures.Add("Cs0", ImageDraw.Image.FromFile("sprites/Towns/Cas0.png"));
+                
+                foreach (var texture_code in texture_codes)
+                {
+                    Textures.Add(texture_code, 
+                                ImageDraw.Image.FromFile(
+                                                        Path.Combine(Settings.Default.SPRITES_DIRECTORY_NAME, Decoding.GetTextureName(texture_code))));
+                }
+                
                 return true;
             }
             catch (FileNotFoundException e)
             {
-                MessageBox.Show("File " + e.Message + " not found.");
+                MessageBox.Show("Texture file " + e.Message + " not found.");
                 return false;
             }
         }
@@ -151,7 +141,7 @@ namespace GameWPF
         {
             try
             {
-                string directory = Properties.Settings.Default.MAPS_DIRECTORY_NAME;
+                string directory = Settings.Default.MAPS_DIRECTORY_NAME;
                 List<string> maps = new List<string>();
 
                 foreach (var file in Directory.GetFiles(directory))
@@ -184,7 +174,6 @@ namespace GameWPF
 
                 MapMenu(EnumMap[posY]);
             }
-
         }
 
         public void MapMenu(string filepath)
@@ -316,7 +305,8 @@ namespace GameWPF
             max_x_border = (int)FirstColumn.ActualWidth * 10 / 11;
             mouse_move = false;
 
-            if (!LoadTextures())
+            //TODO:передавать коды необходимых текстур
+            if (!LoadTextures(null))
             {
                 BitmapImg.MouseLeftButtonDown += MouseClickMenu;
                 return;
@@ -331,53 +321,6 @@ namespace GameWPF
 
         }
 
-        public unsafe void LoadMapUnsafe(string[] GlobalMap)
-        {
-            //GlobalMap.
-
-            GlobalCellInfo = new MapCellInfo[MapInfo.Max_width, MapInfo.Max_height];
-            for (int y = 0; y < MapInfo.Max_height; y++)
-            {
-                for (int x = 0; x < MapInfo.Max_width; x++)
-                {
-                    if (GlobalMap[y * MapInfo.Max_width + x].Split(',').Length == 1)
-                        GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), GlobalMap[y * MapInfo.Max_width + x]));
-                    else
-                    {
-                        var tmp = GlobalMap[y * MapInfo.Max_width + x].Split(',');
-                        Buildings building;
-                        Mobs mob;
-                        Items item;
-                        if (Enum.TryParse(tmp[1], out building))
-                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), building);
-                        else if (Enum.TryParse(tmp[1], out mob))
-                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), mob);
-                        else if (Enum.TryParse(tmp[1], out item))
-                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), item);
-                    }
-                }
-            }
-
-            min_y_border = (int)grid.ActualHeight / 11;
-            max_y_border = (int)grid.ActualHeight * 10 / 11;
-            min_x_border = (int)FirstColumn.ActualWidth / 11;
-            max_x_border = (int)FirstColumn.ActualWidth * 10 / 11;
-            mouse_move = false;
-
-            if (!LoadTextures())
-            {
-                BitmapImg.MouseLeftButtonDown += MouseClickMenu;
-                return;
-            }
-            SetEvents();
-            Game();
-            Rendering();
-
-            //Player:
-            PlayerInfo.Standart_move = PlayerInfo.Max_move = 100;
-            PlayerInfo.Move = PlayerInfo.Max_move;
-
-        }
 
         public void Game()
         {

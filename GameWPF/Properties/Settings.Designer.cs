@@ -40,5 +40,14 @@ namespace GameWPF.Properties {
                 return ((string)(this["MAPS_EXTENSION"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sprites")]
+        public string SPRITES_DIRECTORY_NAME {
+            get {
+                return ((string)(this["SPRITES_DIRECTORY_NAME"]));
+            }
+        }
     }
 }
