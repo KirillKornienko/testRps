@@ -8,5 +8,29 @@
     <Setting Name="MAPS_EXTENSION" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.map</Value>
     </Setting>
+    <Setting Name="SPRITES_DIRECTORY_NAME" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">sprites</Value>
+    </Setting>
+    <Setting Name="TEXTURES_BOG" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Bog</Value>
+    </Setting>
+    <Setting Name="TEXTURES_GRASS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Grs</Value>
+    </Setting>
+    <Setting Name="TEXTURES_GROUND" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Grd</Value>
+    </Setting>
+    <Setting Name="TEXTURES_SAND" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Snd</Value>
+    </Setting>
+    <Setting Name="TEXTURES_SNOW" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Snw</Value>
+    </Setting>
+    <Setting Name="TEXTURES_WATER" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Wtr</Value>
+    </Setting>
+    <Setting Name="TEXTURES_LAVA" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Lav</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
