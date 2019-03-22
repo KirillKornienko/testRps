@@ -8,28 +8,28 @@ namespace GameWPF
 {
     static class Decoding
     {
-        private static Dictionary<string, string> names;
+        private static Dictionary<char, string> names;
 
         static Decoding()
         {
-            names = new Dictionary<string, string>();
+            names = new Dictionary<char, string>();
 
-            names.Add("Bog", "Bog.jpg");
-            names.Add("Player", "RedPlayer.png");
-            names.Add("Grs", "Grass.jpg");
-            names.Add("Grd", "Ground.jpg");
-            names.Add("Snd", "Sand.jpg");
-            names.Add("Snw", "Snow.jpg");
-            names.Add("Wtr", "Water.jpg");
-            names.Add("NULL", "Emptiness.jpg");
-            names.Add("Lav", "Lava.jpg");
+            names.Add('b', "Bog.jpg");
+            names.Add('R', "RedPlayer.png");
+            names.Add('g', "Grass.jpg");
+            names.Add('d', "Ground.jpg");
+            names.Add('s', "Sand.jpg");
+            names.Add('w', "Snow.jpg");
+            names.Add('W', "Water.jpg");
+            names.Add('N', "Emptiness.jpg");
+            names.Add('l', "Lava.jpg");
 
-            names.Add("Cs0", "Towns/Cas0.png");
+            names.Add('c', "Towns/Cas0.png");
 
         }
 
 
-        public static string GetTextureName(string texture_code)
+        public static string GetTextureName(char texture_code)
         {
             return names[texture_code];
         }

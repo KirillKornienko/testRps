@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-//using System.Threading;
 using System.Windows;
 using System.Drawing;
 //using System.Windows.Controls;
@@ -25,7 +24,7 @@ namespace GameWPF
         MapCellInfo[,] VisibleMap;
         Bitmap bitmapobj;
         Graphics graphics;
-        Dictionary<string, ImageDraw.Image> Textures;
+        Dictionary<char, ImageDraw.Image> Textures;
         Dictionary<string, CreatureInfo> ArmyInfo;
         Dictionary<string, HeroesInfo> HeroInfo;
         Dictionary<int, string> EnumMap;
@@ -81,11 +80,11 @@ namespace GameWPF
             MenuDemo();
         }
 
-        private bool LoadTextures(string[] texture_codes)
+        private bool LoadTextures(char[] texture_codes)
         {
             try
             {
-                Textures = new Dictionary<string, ImageDraw.Image>();
+                Textures = new Dictionary<char, ImageDraw.Image>();
                 
                 foreach (var texture_code in texture_codes)
                 {
@@ -223,7 +222,7 @@ namespace GameWPF
 
             BitmapImg.MouseLeftButtonDown -= MouseClickMapMenu;
 
-            LoadMap(File.OpenText(map_filepath).ReadToEnd().Split('{').Last().Remove(0, 2).Split('|').ToArray());
+            LoadMap(File.OpenText(map_filepath).ReadToEnd().Split('{').Last().Remove(0, 2).ToCharArray());
 
         }
 
@@ -272,29 +271,36 @@ namespace GameWPF
 
         }
 
-        public void LoadMap(string[] GlobalMap)
+        public void LoadMap(char[] GlobalMap)
         {
             //GlobalMap.
 
             GlobalCellInfo = new MapCellInfo[MapInfo.Max_width, MapInfo.Max_height];
+            int index = 0;
+            int last_index = GlobalMap.Length - 1;
+
             for (int y = 0; y < MapInfo.Max_height; y++)
             {
-                for (int x = 0; x < MapInfo.Max_width; x++)
+                for (int x = 0; x < MapInfo.Max_width; x++, index++)
                 {
-                    if (GlobalMap[y * MapInfo.Max_width + x].Split(',').Length == 1)
-                        GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), GlobalMap[y * MapInfo.Max_width + x]));
+                    SurfaceTypes type = (SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), GlobalMap[index].ToString());
+
+                    if (index == last_index || GlobalMap[index + 1] != ',')
+                    {
+                        GlobalCellInfo[x, y] = new MapCellInfo(type);
+                    }
                     else
                     {
-                        var tmp = GlobalMap[y * MapInfo.Max_width + x].Split(',');
+                        string added = GlobalMap[index + 1].ToString();
                         Buildings building;
                         Mobs mob;
                         Items item;
-                        if (Enum.TryParse(tmp[1], out building))
-                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), building);
-                        else if (Enum.TryParse(tmp[1], out mob))
-                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), mob);
-                        else if (Enum.TryParse(tmp[1], out item))
-                            GlobalCellInfo[x, y] = new MapCellInfo((SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), tmp[0]), item);
+                        if (Enum.TryParse(added, out building))
+                            GlobalCellInfo[x, y] = new MapCellInfo(type, building);
+                        else if (Enum.TryParse(added, out mob))
+                            GlobalCellInfo[x, y] = new MapCellInfo(type, mob);
+                        else if (Enum.TryParse(added, out item))
+                            GlobalCellInfo[x, y] = new MapCellInfo(type, item);
                     }
                 }
             }
@@ -339,13 +345,13 @@ namespace GameWPF
             {
                 for (int x = 0; x < VisibleInfo.Max_width * 64; x += 64)
                 {
-                    graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].SurfaceType.ToString()], new PointF(x, y));
+                    graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].SurfaceType.ToString()[0]], new PointF(x, y));
 
                     if (VisibleMap[x / 64, y / 64].Mob != Mobs.NULL)
-                        graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].Mob.ToString()], new PointF(x, y));
+                        graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].Mob.ToString()[0]], new PointF(x, y));
 
                     if (VisibleMap[x / 64, y / 64].Building != Buildings.NULL)
-                        graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].Building.ToString()], new PointF(x, y));
+                        graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].Building.ToString()[0]], new PointF(x, y));
                 }
             }
             graphics.Flush();
