@@ -86,7 +86,7 @@ namespace GameWPF
             {
                 Textures = new Dictionary<char, ImageDraw.Image>();
                 
-                foreach (var texture_code in texture_codes)
+               foreach (var texture_code in texture_codes)
                 {
                     Textures.Add(texture_code, 
                                 ImageDraw.Image.FromFile(
@@ -281,11 +281,11 @@ namespace GameWPF
 
             for (int y = 0; y < MapInfo.Max_height; y++)
             {
-                for (int x = 0; x < MapInfo.Max_width; x++, index++)
+                for (int x = 0; x < MapInfo.Max_width; x++)
                 {
-                    SurfaceTypes type = (SurfaceTypes)Enum.Parse(typeof(SurfaceTypes), GlobalMap[index].ToString());
+                    SurfaceTypes type = Decoding.GetSurfaceTypes(GlobalMap[index]);
 
-                    if (index == last_index || GlobalMap[index + 1] != ',')
+                    if (index == last_index || GlobalMap[++index] != ',')
                     {
                         GlobalCellInfo[x, y] = new MapCellInfo(type);
                     }
@@ -301,6 +301,8 @@ namespace GameWPF
                             GlobalCellInfo[x, y] = new MapCellInfo(type, mob);
                         else if (Enum.TryParse(added, out item))
                             GlobalCellInfo[x, y] = new MapCellInfo(type, item);
+
+                        index = index + 2;
                     }
                 }
             }
@@ -311,7 +313,7 @@ namespace GameWPF
             max_x_border = (int)FirstColumn.ActualWidth * 10 / 11;
             mouse_move = false;
 
-            //TODO:передавать коды необходимых текстур
+            //TODO:передавать коды необходимых текстур, кроме стандартных surfaceTypes
             if (!LoadTextures(null))
             {
                 BitmapImg.MouseLeftButtonDown += MouseClickMenu;
@@ -783,10 +785,10 @@ namespace GameWPF
         private void Patency_Method()
         {
             if (SurfaceType == SurfaceTypes.NULL) Patency = 255;
-            else if (SurfaceType == SurfaceTypes.Snd) Patency = 2;
-            else if (SurfaceType == SurfaceTypes.Wtr) Patency = 10;
-            else if (SurfaceType == SurfaceTypes.Snw) Patency = 5;
-            else if (SurfaceType == SurfaceTypes.Bog) Patency = 15;
+            else if (SurfaceType == SurfaceTypes.sand) Patency = 2;
+            else if (SurfaceType == SurfaceTypes.water) Patency = 10;
+            else if (SurfaceType == SurfaceTypes.snow) Patency = 5;
+            else if (SurfaceType == SurfaceTypes.bog) Patency = 15;
             else Patency = 1;                                            // Ground & Grass
 
             if (Building != Buildings.NULL) Patency = 255;
@@ -1104,13 +1106,13 @@ namespace GameWPF
     enum SurfaceTypes
     {
         NULL,
-        Grd,    // ground 
-        Grs,    // grass
-        Wtr,    // water
-        Snd,    // sand
-        Snw,    // snow
-        Bog,    // bog
-        Lav,    // lava
+        ground,    // ground 
+        grass,    // grass
+        water,    // water
+        sand,    // sand
+        snow,    // snow
+        bog,    // bog
+        lava,    // lava
     }
     enum Buildings
     {
