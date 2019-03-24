@@ -285,13 +285,13 @@ namespace GameWPF
                 {
                     SurfaceTypes type = Decoding.GetSurfaceTypes(GlobalMap[index]);
 
-                    if (index == last_index || GlobalMap[++index] != ',')
+                    if (index == last_index || GlobalMap[index + 1] != ',')
                     {
                         GlobalCellInfo[x, y] = new MapCellInfo(type);
                     }
                     else
                     {
-                        string added = GlobalMap[index + 1].ToString();
+                        string added = GlobalMap[index + 2].ToString();
                         Buildings building;
                         Mobs mob;
                         Items item;
@@ -302,7 +302,7 @@ namespace GameWPF
                         else if (Enum.TryParse(added, out item))
                             GlobalCellInfo[x, y] = new MapCellInfo(type, item);
 
-                        index = index + 2;
+                        index = index + 3;
                     }
                 }
             }
@@ -347,6 +347,7 @@ namespace GameWPF
             {
                 for (int x = 0; x < VisibleInfo.Max_width * 64; x += 64)
                 {
+                    //TODO: возможно .ToString вернет не код текстуры, а полное имя
                     graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].SurfaceType.ToString()[0]], new PointF(x, y));
 
                     if (VisibleMap[x / 64, y / 64].Mob != Mobs.NULL)

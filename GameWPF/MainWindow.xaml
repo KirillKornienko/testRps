@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameWPF"
         mc:Ignorable="d"
-        WindowStyle="ThreeDBorderWindow"
         WindowState="Maximized"
-        Title="GameWPF" Height="800" Width="1400">
+        Title="GameWPF" Height="800" Width="1400" WindowStyle="None">
     <Grid Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Name="FirstColumn" Width="5*"/>
@@ -56,5 +55,6 @@
             <ProgressBar Name="ProgressBar_Turn" Height="25" Value="100"></ProgressBar>
             <Button Click="NextTurn_Click" FontSize="16">Next Turn</Button>
         </StackPanel>
+        <local:MenuUserControl Grid.ColumnSpan="2" Height="Auto" Margin="0" Width="Auto" />
     </Grid>
 </Window>

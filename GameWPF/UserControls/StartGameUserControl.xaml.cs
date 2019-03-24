@@ -13,29 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GameWPF
+namespace GameWPF.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для MenuUserControl.xaml
+    /// Логика взаимодействия для StartGameUserControl.xaml
     /// </summary>
-    public partial class MenuUserControl : UserControl
+    public partial class StartGameUserControl : UserControl
     {
-        public MenuUserControl()
+        public StartGameUserControl()
         {
             InitializeComponent();
         }
 
-        private void StartGameClick(object sender, RoutedEventArgs e)
+        private void SinglePlayerClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Кнопка №1 нажата");
+            MessageBox.Show("Кнопка старта игры нажата");
         }
 
-        private void LoadGameClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Кнопка №2 нажата");
-        }
-
-        private void ExitGameClick(object sender, RoutedEventArgs e)
+        private void BackToMainMenuClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
