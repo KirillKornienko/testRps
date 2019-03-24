@@ -25,12 +25,12 @@ namespace GameWPF.UserControls
             InitializeComponent();
         }
 
-        private void SinglePlayerClick(object sender, RoutedEventArgs e)
+        private void SinglePlayer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Кнопка старта игры нажата");
+            MessageBox.Show("Кнопка старта нажата");
         }
 
-        private void BackToMainMenuClick(object sender, RoutedEventArgs e)
+        private void BackToMainMenu_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
