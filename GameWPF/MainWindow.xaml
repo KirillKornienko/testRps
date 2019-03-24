@@ -8,53 +8,5 @@
         WindowState="Maximized"
         Title="GameWPF" Height="800" Width="1400" WindowStyle="None">
     <Grid Name="grid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Name="FirstColumn" Width="5*"/>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <UniformGrid Name="UniformGr" Grid.Column="0" Columns="5" Rows="5" Visibility="Collapsed"></UniformGrid>
-        <Image Grid.Column="0"
-               Name="BitmapImg"
-               Stretch="Fill"
-               
-               
-               
-        >
-        </Image>
-        <StackPanel Grid.Column="1">
-            <Label Name="Label1" FontSize="16"/>
-            <Label Name="Label2" FontSize="16"/>
-            <Label Name="Label3" FontSize="16"/>
-            <Label Name="Label4" FontSize="16"/>
-            <Label Name="Label5" FontSize="16"/>
-            <Label Name="Label6" FontSize="16"/>
-            <Label Name="Label7" FontSize="16"/>
-            <Label Name="Label8" FontSize="16"/>
-            <StackPanel>
-                <Label FontSize="14">KeyInfo:</Label>
-                <Label Name="LabelKeyInfo" Content="" FontSize="16"/>
-                <Label Name="LabelKeyCount" Content="0"  FontSize="16"/>
-            </StackPanel>
-            <StackPanel>
-                <Label FontSize="14">Player position:</Label>
-                <Label Name="Coordinate" FontSize="16"/>
-            </StackPanel>
-            <Label FontSize="14">Click Info:</Label>
-            <Label Name="ClickX" FontSize="16"></Label>
-            <Label Name="ClickY" FontSize="16"></Label>
-            <Button x:Name="SaveMap" Click="SaveMap_Click" Content="Save"/>
-            <Label Name="MapInfoLabel" FontSize="16"></Label>
-            <Label FontSize="14">Camera Info:</Label>
-            <Label Name="CamX" FontSize="16"></Label>
-            <Label Name="CamY" FontSize="16"></Label>
-
-        </StackPanel>
-        <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
-            <Button Name="BackToMenu" Click="BackToMenu_Click" Height="25">Menu</Button>
-            <Label Name="Label_turn" Height="25"/>
-            <ProgressBar Name="ProgressBar_Turn" Height="25" Value="100"></ProgressBar>
-            <Button Click="NextTurn_Click" FontSize="16">Next Turn</Button>
-        </StackPanel>
-        <local:MenuUserControl Grid.ColumnSpan="2" Height="Auto" Margin="0" Width="Auto" />
     </Grid>
 </Window>

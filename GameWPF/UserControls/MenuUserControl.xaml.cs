@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace GameWPF
+namespace GameWPF.UserControls
 {
     /// <summary>
     /// Логика взаимодействия для MenuUserControl.xaml
@@ -27,17 +16,20 @@ namespace GameWPF
 
         private void StartGameClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Кнопка №1 нажата");
+            StartGameClicked(this, null);
         }
 
         private void LoadGameClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Кнопка №2 нажата");
+            LoadGameClicked(this, null);
         }
 
         private void ExitGameClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
+        public event EventHandler StartGameClicked;
+        public event EventHandler LoadGameClicked;
     }
 }

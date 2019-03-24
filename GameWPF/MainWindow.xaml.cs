@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using ImageDraw = System.Drawing;
 using Settings = GameWPF.Properties.Settings;
-
+using GameWPF.MenuActions;
 
 namespace GameWPF
 {
@@ -42,11 +42,6 @@ namespace GameWPF
         int min_y_border, max_y_border, min_x_border, max_x_border;
         bool mouse_move;
 
-        /*public static void ChangeText_element(Label obj, string text)
-        {
-            obj.Content = text;
-        }
-        */
 
         public MainWindow() {
             InitializeComponent();
@@ -54,30 +49,46 @@ namespace GameWPF
             Loaded += MainWindow_Loaded;
         }
 
+
+
         private void MainWindow_Loaded(object sender, EventArgs e)
         {
-            Label1.Content = "Ширина: " + FirstColumn.ActualWidth;
-            Label2.Content = "Высота: " + grid.ActualHeight;
-            Label3.Content = "Количество по ширине " + FirstColumn.ActualWidth / 64;
-            Label4.Content = "Количество по высоте " + grid.ActualHeight / 64;
-            if ((int)FirstColumn.ActualWidth % 2 == 1) width = (int)FirstColumn.ActualWidth / 128 + 1;
-            else width = ((int)FirstColumn.ActualWidth / 128);
-            Label5.Content = "Клетка по ширине: " + width;
-            if ((int)grid.ActualHeight % 2 == 1) height = (int)grid.ActualHeight / 128;
-            else height = ((int)grid.ActualHeight / 128);
-            Label6.Content = "Клетка по высоте: " + height;
+            MainMenuActions menu_actions = new MainMenuActions();
+
+            EventSubscription(menu_actions);
+
+            menu_actions.Initialize();
+
             
 
-            VisibleInfo.Max_width = (int)FirstColumn.ActualWidth / 64;        // !!Сетка не изменяется при изменении разрешения!!
+
+
+            VisibleInfo.Max_width = (int)grid.ActualWidth / 64;        // !!Сетка не изменяется при изменении разрешения!!
             VisibleInfo.Max_height = (int)grid.ActualHeight / 64;
 
             VisibleInfo.Player_position_y = VisibleInfo.Max_height / 2;
             VisibleInfo.Player_position_x = VisibleInfo.Max_width / 2;        //предположим, что x всегда нечётный (1)
 
-            bitmapobj = new Bitmap((int)FirstColumn.ActualWidth, (int)grid.ActualHeight);
+            bitmapobj = new Bitmap((int)grid.ActualWidth, (int)grid.ActualHeight);
             graphics = Graphics.FromImage(bitmapobj);
 
-            MenuDemo();
+        }
+
+        void EventSubscription(IActions menu_actions)
+        {
+            menu_actions.NewElement += NewElement;
+
+            menu_actions.DeleteElements += DeleteElements;
+        }
+
+        private void NewElement(object sender, System.Windows.Controls.UserControl new_element)
+        {
+            grid.Children.Add(new_element);
+        }
+
+        private void DeleteElements(object sender, EventArgs e)
+        {
+            grid.Children.Clear();
         }
 
         private bool LoadTextures(char[] texture_codes)
@@ -104,36 +115,19 @@ namespace GameWPF
 
         private void SetEvents()
         {
-            BitmapImg.MouseMove += BitmapImg_MouseMove;
-            BitmapImg.MouseLeftButtonDown += BitmapImg_MouseLeftButtonDown;
+            //BitmapImg.MouseMove += BitmapImg_MouseMove;
+            //BitmapImg.MouseLeftButtonDown += BitmapImg_MouseLeftButtonDown;
             PreviewTextInput += Window_PreviewTextInput;
         }
 
         public void MenuDemo()
         {
-            EnumMap = new Dictionary<int, string>();
-
-            int y = 0;
-            graphics.DrawString("Maps:", arial18, Brushes.White, new PointF(0, 0));
-            graphics.DrawString("Name:", arial18, Brushes.White, new PointF(250, 0));
-            graphics.DrawString("Size:", arial18, Brushes.White, new PointF(500, 0));
-            graphics.DrawString("Players:", arial18, Brushes.White, new PointF(750, 0));
-
 
             foreach (var s in GetMapList()) {
-                var file = File.OpenText(s);
-                graphics.DrawString(s.Split(new char[] { '\\' }).Last(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(0, y += 20));
-                graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(250, y));
-                graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(500, y));
-                graphics.DrawString(file.ReadLine(), new Font(new FontFamily("Arial"), 16), Brushes.White, new PointF(750, y));
-                EnumMap.Add(y / 20, s);     //"y" начинается с 1
-                file.Close();
+
             }
             graphics.Flush();
 
-            BitmapImg.MouseLeftButtonDown += MouseClickMenu;
-
-            BitmapImg.Source = BitmapToImageSource(bitmapobj);
         }
 
         public List<string> GetMapList()
@@ -158,27 +152,9 @@ namespace GameWPF
             }
         }
 
-        private void MouseClickMenu(object sender, MouseButtonEventArgs e)
-        {
-            var x = (int) e.GetPosition(BitmapImg).X;
-            var y = (int) e.GetPosition(BitmapImg).Y;
-
-            ClickX.Content = x;
-            ClickY.Content = y;
-
-            int posY = y / 20;
-            if (posY <= EnumMap.Count && posY != 0)
-            {
-                BitmapImg.MouseLeftButtonDown -= MouseClickMenu;
-
-                MapMenu(EnumMap[posY]);
-            }
-        }
-
         public void MapMenu(string filepath)
         {
             map_filepath = filepath;
-            BitmapImg.MouseLeftButtonDown += MouseClickMapMenu;
 
             var file = File.OpenText(filepath);
             string[] MapSettings;
@@ -194,7 +170,7 @@ namespace GameWPF
             MapInfo.Player_position_y = Convert.ToInt32(MapSettings[1]);
             var xex = file.ReadLine();
             MapInfo.Info = xex.Remove(0, 1).Remove(xex.Length - 2, 1);
-            MapInfoLabel.Content = MapInfo.Info;
+            //MapInfoLabel.Content = MapInfo.Info;
 
             Allies = new Player[MapInfo.Num_of_allies];
             Enemies = new Player[MapInfo.Num_of_enemies];
@@ -213,61 +189,14 @@ namespace GameWPF
                 Enemies[i] = new Player("Enemies " + i, BaseTown.Castle, Color.Red, 10000, 20, 20, 10, 10, 10, 10);
             }
 
-            RenderMapMenu();
+
 
         }
 
         private void MouseClickMapMenu(object sender, MouseButtonEventArgs e)
         {
 
-            BitmapImg.MouseLeftButtonDown -= MouseClickMapMenu;
-
             LoadMap(File.OpenText(map_filepath).ReadToEnd().Split('{').Last().Remove(0, 2).ToCharArray());
-
-        }
-
-        private void RenderMapMenu()
-        {
-            graphics.Clear(Color.Black);
-            int y = 0;
-            graphics.DrawString("Name:", arial18, Brushes.White, new PointF(0, 0));
-            graphics.DrawString("Starting town:", arial18, Brushes.White, new PointF(250, 0));
-            graphics.DrawString("Starting hero:", arial18, Brushes.White, new PointF(500, 0));
-            graphics.DrawString("Colour:", arial18, Brushes.White, new PointF(750, 0));
-            graphics.DrawString("Resources:", arial18, Brushes.White, new PointF(1000, 0));
-
-            y += 20;
-            //player
-            graphics.DrawString("Player", arial18, Brushes.White, new PointF(0, y));
-            graphics.DrawString("Castle", arial18, Brushes.White, new PointF(250, y));
-            graphics.DrawString("Adela", arial18, Brushes.White, new PointF(500, y));
-            graphics.DrawString("Blue", arial18, Brushes.White, new PointF(750, y));
-            graphics.DrawString("Medium", arial18, Brushes.White, new PointF(1000, y));
-
-
-            for (int i = 0; i< MapInfo.Num_of_allies; i++)
-            {
-                if (i == 0) graphics.DrawString("Allies:", arial18, Brushes.White, new PointF(0, y+=20));
-                y += 20;
-                graphics.DrawString("Allies" + i, arial18, Brushes.White, new PointF(0, y));
-                graphics.DrawString("NoCastle", arial18, Brushes.White, new PointF(250, y));
-                graphics.DrawString("Adela", arial18, Brushes.White, new PointF(500, y));
-                graphics.DrawString("Blue", arial18, Brushes.White, new PointF(750, y));
-            }
-
-            for (int i = 0; i < MapInfo.Num_of_enemies; i++)
-            {
-                if (i == 0) graphics.DrawString("Enemies:", arial18, Brushes.White, new PointF(0, y += 20));
-                y += 20;
-                graphics.DrawString("Enemies" + i, arial18, Brushes.White, new PointF(0, y));
-                graphics.DrawString("NoCastle", arial18, Brushes.White, new PointF(250, y));
-                graphics.DrawString("Adela", arial18, Brushes.White, new PointF(500, y));
-                graphics.DrawString("Blue", arial18, Brushes.White, new PointF(750, y));
-            }
-
-            graphics.Flush();
-
-            BitmapImg.Source = BitmapToImageSource(bitmapobj);
 
         }
 
@@ -309,14 +238,14 @@ namespace GameWPF
 
             min_y_border = (int)grid.ActualHeight / 11;
             max_y_border = (int)grid.ActualHeight * 10 / 11;
-            min_x_border = (int)FirstColumn.ActualWidth / 11;
-            max_x_border = (int)FirstColumn.ActualWidth * 10 / 11;
+            min_x_border = (int)grid.ActualWidth / 11;
+            max_x_border = (int)grid.ActualWidth * 10 / 11;
             mouse_move = false;
 
             //TODO:передавать коды необходимых текстур, кроме стандартных surfaceTypes
             if (!LoadTextures(null))
             {
-                BitmapImg.MouseLeftButtonDown += MouseClickMenu;
+                //BitmapImg.MouseLeftButtonDown += MouseClickMenu;
                 return;
             }
             SetEvents();
@@ -359,8 +288,8 @@ namespace GameWPF
             }
             graphics.Flush();
 
-            BitmapImg.Source = BitmapToImageSource(bitmapobj);
-            Coordinate.Content = "x: " + MapInfo.Player_position_x + " y: " + MapInfo.Player_position_y;
+            //BitmapImg.Source = BitmapToImageSource(bitmapobj);
+            //Coordinate.Content = "x: " + MapInfo.Player_position_x + " y: " + MapInfo.Player_position_y;
             GC.Collect();
         }
 
@@ -373,11 +302,13 @@ namespace GameWPF
             {
                 keychar = tmp;
                 zi = 0;
-                LabelKeyInfo.Content = e.Text;
-                LabelKeyCount.Content = zi;
+                //LabelKeyInfo.Content = e.Text;
+                //LabelKeyCount.Content = zi;
             }
             else
-                LabelKeyCount.Content = ++zi;
+            { }
+                //LabelKeyCount.Content = ++zi;
+
 
             if ((tmp == 'w' || tmp =='W') && MapInfo.Player_position_y > 1) KeyPress('w');
             else if ((tmp == 's' || tmp =='S') && MapInfo.Player_position_y < MapInfo.Max_height) KeyPress('s');
@@ -475,8 +406,6 @@ namespace GameWPF
             VisibleMap = tmp;
             PlayerInfo.Move -= VisibleMap[VisibleInfo.Player_position_x, VisibleInfo.Player_position_y].Patency * diagonal_coff;
             Rendering();
-            Label_turn.Content = 100d / PlayerInfo.Max_move * PlayerInfo.Move;
-            ProgressBar_Turn.Value = 100d / PlayerInfo.Max_move * PlayerInfo.Move;
         }
 
         int? tmp_x = null;
@@ -484,8 +413,10 @@ namespace GameWPF
         WaySelection way;
         private void BitmapImg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var x = (int)e.GetPosition(BitmapImg).X / 64 - VisibleInfo.Player_position_x;
-            var y = (int)e.GetPosition(BitmapImg).Y / 64 - VisibleInfo.Player_position_y;
+            //var x = (int)e.GetPosition(BitmapImg).X / 64 - VisibleInfo.Player_position_x;
+            //var y = (int)e.GetPosition(BitmapImg).Y / 64 - VisibleInfo.Player_position_y;
+            var x = 0;
+            var y = 0;
             int X_way = x + VisibleInfo.Camera_position_x - MapInfo.Player_position_x;
             int Y_way = y + VisibleInfo.Camera_position_y - MapInfo.Player_position_y;
 
@@ -555,28 +486,15 @@ namespace GameWPF
                     tmp_x = null;
                     tmp_y = null;
                 }
-                ClickX.Content = way.X_way;
-                ClickY.Content = way.Y_way;
+                //ClickX.Content = way.X_way;
+                //ClickY.Content = way.Y_way;
             }
         }
 
         private void NextTurn_Click(object sender, RoutedEventArgs e)
         {
             PlayerInfo.Move = PlayerInfo.Max_move;
-            ProgressBar_Turn.Value = 100;
-        }
-
-        private void BackToMenu_Click(object sender, RoutedEventArgs e)
-        {
-            BitmapImg.MouseMove -= BitmapImg_MouseMove;
-
-            BitmapImg.MouseLeftButtonDown -= BitmapImg_MouseLeftButtonDown;
-
-            PreviewTextInput -= Window_PreviewTextInput;
-
-            graphics.Clear(Color.Black);
-            MenuDemo();
-            
+            //ProgressBar_Turn.Value = 100;
         }
 
         private void SaveMap_Click(object sender, RoutedEventArgs e)
@@ -603,10 +521,12 @@ namespace GameWPF
 
         private void BitmapImg_MouseMove(object sender, MouseEventArgs e)
         {
-            var positionY = e.GetPosition(BitmapImg).Y;
-            var positionX = e.GetPosition(BitmapImg).X;
-            Label7.Content = positionX;
-            Label8.Content = positionY;
+            //var positionY = e.GetPosition(BitmapImg).Y;
+            //var positionX = e.GetPosition(BitmapImg).X;
+            var positionY = 0;
+            var positionX = 0;
+            //Label7.Content = positionX;
+            //Label8.Content = positionY;
 
             if (positionY < min_y_border || positionY > max_y_border ||
                 positionX < min_x_border || positionX > max_x_border)
@@ -659,8 +579,8 @@ namespace GameWPF
                     }
                     VisibleMap = tmp;
                     Rendering();
-                    CamX.Content = VisibleInfo.Camera_position_x;
-                    CamY.Content = VisibleInfo.Camera_position_y;
+                    //CamX.Content = VisibleInfo.Camera_position_x;
+                    //CamY.Content = VisibleInfo.Camera_position_y;
                 }
             }
             else
