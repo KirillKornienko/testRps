@@ -53,5 +53,9 @@ namespace GameWPF.MenuActions
             load_game.Initialize();
         }
 
+        public override void Returned()
+        {
+            NewElement(this, menu);
+        }
     }
 }

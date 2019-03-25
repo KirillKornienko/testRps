@@ -20,9 +20,25 @@ namespace GameWPF.UserControls
     /// </summary>
     public partial class SinglePlayerUserControl : UserControl
     {
+        public event EventHandler BackToStartGameMenuClicked;
+        public event EventHandler StartGameClicked;
+
         public SinglePlayerUserControl()
         {
             InitializeComponent();
+
+        }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            StartGameClicked(this, null);
+        }
+
+        private void BackMenu_Click(object sender, RoutedEventArgs e)
+        {
+            BackToStartGameMenuClicked(this, null);
         }
     }
 }

@@ -4,22 +4,22 @@ using GameWPF.UserControls;
 
 namespace GameWPF.MenuActions
 {
-    sealed class LoadGameMenuActions : Actions
+    sealed class SinglePlayerMenuActions : Actions
     {
         public override event EventAddElementHandler NewElement;
         public override event EventHandler DeleteElements;
 
-        private LoadGameUserControl menu;
+        private SinglePlayerUserControl menu;
         private Actions back_action;
 
-        public LoadGameMenuActions(Actions back_action)
+        public SinglePlayerMenuActions(Actions back_action)
         {
             this.back_action = back_action;
         }
 
         public override void Initialize()
         {
-            menu = new LoadGameUserControl();
+            menu = new SinglePlayerUserControl();
 
             EventsSubscription();
 
@@ -27,6 +27,19 @@ namespace GameWPF.MenuActions
         }
 
         protected override void EventsSubscription()
+        {
+            menu.StartGameClicked += Menu_StartGameClicked;
+            menu.BackToStartGameMenuClicked += Menu_BackToStartGameMenuClicked;
+        }
+
+        private void Menu_BackToStartGameMenuClicked(object sender, EventArgs e)
+        {
+            DeleteElements(this, null);
+
+            back_action.Returned();
+        }
+
+        private void Menu_StartGameClicked(object sender, EventArgs e)
         {
             throw new NotImplementedException();
         }

@@ -31,5 +31,7 @@ namespace GameWPF.MenuActions
         protected abstract void EventsSubscription();
 
         protected abstract void NewElementSubscription(IActions actions);
+
+        public abstract void Returned();
     }
 }

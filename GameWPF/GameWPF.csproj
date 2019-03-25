@@ -76,6 +76,7 @@
     <Compile Include="MenuActions\IActions.cs" />
     <Compile Include="MenuActions\LoadGameMenuActions.cs" />
     <Compile Include="MenuActions\MainMenuActions.cs" />
+    <Compile Include="MenuActions\SinglePlayerMenuActions.cs" />
     <Compile Include="MenuActions\StartGameMenuActions.cs" />
     <Compile Include="TextureNameDecoding.cs" />
     <Compile Include="UserControls\GameUserControl.xaml.cs">
@@ -174,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\StartGameMenu.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SingleGameMenu.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

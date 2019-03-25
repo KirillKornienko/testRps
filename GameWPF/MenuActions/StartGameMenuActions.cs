@@ -19,7 +19,7 @@ namespace GameWPF.MenuActions
 
         protected override void EventsSubscription()
         {
-            menu.SinglePlayerClicked += Menu_SinglePlayerClicked; ;
+            menu.SinglePlayerClicked += Menu_SinglePlayerClicked;
 
             menu.BackToMainMenuClicked += Menu_BackToMainMenuClicked;
         }
@@ -28,12 +28,16 @@ namespace GameWPF.MenuActions
         {
             DeleteElements(this, null);
 
-            back_action.Initialize();
+            back_action.Returned();
         }
 
         private void Menu_SinglePlayerClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            DeleteElements(this, null);
+
+            var single_player_menu = new SinglePlayerMenuActions(this);
+            NewElementSubscription(single_player_menu);
+            single_player_menu.Initialize();
         }
 
         public override void Initialize()
@@ -49,6 +53,11 @@ namespace GameWPF.MenuActions
         {
             actions.NewElement += (sender, new_element) => NewElement(sender, new_element);
             actions.DeleteElements += (sender, event_args) => DeleteElements(sender, event_args);
+        }
+
+        public override void Returned()
+        {
+            NewElement(this, menu);
         }
     }
 }
