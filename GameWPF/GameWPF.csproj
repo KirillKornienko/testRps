@@ -73,12 +73,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MapList.cs" />
     <Compile Include="MenuActions\IActions.cs" />
     <Compile Include="MenuActions\LoadGameMenuActions.cs" />
     <Compile Include="MenuActions\MainMenuActions.cs" />
     <Compile Include="MenuActions\SinglePlayerMenuActions.cs" />
     <Compile Include="MenuActions\StartGameMenuActions.cs" />
     <Compile Include="TextureNameDecoding.cs" />
+    <Compile Include="UserControls\Elements\MapUserControl.xaml.cs">
+      <DependentUpon>MapUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\GameUserControl.xaml.cs">
       <DependentUpon>GameUserControl.xaml</DependentUpon>
     </Compile>
@@ -108,6 +112,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\Elements\MapUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\GameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -19,7 +19,8 @@
                 <RowDefinition Height="39*"/>
                 <RowDefinition Height="25*"/>
                 <RowDefinition Height="5*"/>
-                <RowDefinition Height="361*"/>
+                <RowDefinition Height="21*"/>
+                <RowDefinition Height="339*"/>
                 <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
@@ -53,11 +54,15 @@
                     <ColumnDefinition Width="25*"/>
                     <ColumnDefinition Width="19*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="22*"/>
-                    <RowDefinition Height="339*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="1">
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36*"/>
+                    <ColumnDefinition Width="59*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Name="MapList" Grid.Column="1">
                     
                 </StackPanel>
             </Grid>

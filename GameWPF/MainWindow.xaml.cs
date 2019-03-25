@@ -23,7 +23,7 @@ namespace GameWPF
         MapCellInfo[,] VisibleMap;
         Bitmap bitmapobj;
         Graphics graphics;
-        Dictionary<char, ImageDraw.Image> Textures;
+        Dictionary<SurfaceTypes, ImageDraw.Image> SurfaceTextures;
         Dictionary<string, CreatureInfo> ArmyInfo;
         Dictionary<string, HeroesInfo> HeroInfo;
         Dictionary<int, string> EnumMap;
@@ -90,19 +90,23 @@ namespace GameWPF
             grid.Children.Clear();
         }
 
-        private bool LoadTextures(char[] texture_codes)
+        //TODO: Текстуры могут не грузиться, 
+        private bool LoadTextures(SurfaceTypes[] texture_codes)
         {
             try
             {
-                Textures = new Dictionary<char, ImageDraw.Image>();
+                SurfaceTextures = new Dictionary<SurfaceTypes, ImageDraw.Image>();
                 
-               foreach (var texture_code in texture_codes)
+                foreach (var texture_code in texture_codes)
                 {
-                    Textures.Add(texture_code, 
+                    //TODO: Необходимо узнать filepath по SurfaceType
+                    /*
+                    SurfaceTextures.Add(texture_code, 
                                 ImageDraw.Image.FromFile(
-                                                        Path.Combine(Settings.Default.SPRITES_DIRECTORY_NAME, Decoding.GetTextureName(texture_code))));
+                                                        Path.Combine(Settings.Default.SPRITES_DIRECTORY_NAME, Decoding.GetTextureName(texture_code.ToString()))));
+                    */
                 }
-                
+
                 return true;
             }
             catch (FileNotFoundException e)
@@ -276,13 +280,13 @@ namespace GameWPF
                 for (int x = 0; x < VisibleInfo.Max_width * 64; x += 64)
                 {
                     //TODO: возможно .ToString вернет не код текстуры, а полное имя
-                    graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].SurfaceType.ToString()[0]], new PointF(x, y));
+                    graphics.DrawImage(SurfaceTextures[VisibleMap[x / 64, y / 64].SurfaceType], new PointF(x, y));
 
-                    if (VisibleMap[x / 64, y / 64].Mob != Mobs.NULL)
-                        graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].Mob.ToString()[0]], new PointF(x, y));
+                    //if (VisibleMap[x / 64, y / 64].Mob != Mobs.NULL)
+                    //    graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].Mob.ToString()[0]], new PointF(x, y));
 
-                    if (VisibleMap[x / 64, y / 64].Building != Buildings.NULL)
-                        graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].Building.ToString()[0]], new PointF(x, y));
+                    //if (VisibleMap[x / 64, y / 64].Building != Buildings.NULL)
+                    //    graphics.DrawImage(Textures[VisibleMap[x / 64, y / 64].Building.ToString()[0]], new PointF(x, y));
                 }
             }
             graphics.Flush();

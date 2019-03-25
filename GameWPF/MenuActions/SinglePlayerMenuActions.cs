@@ -30,6 +30,13 @@ namespace GameWPF.MenuActions
         {
             menu.StartGameClicked += Menu_StartGameClicked;
             menu.BackToStartGameMenuClicked += Menu_BackToStartGameMenuClicked;
+
+            menu.ReadyToGetMapList += Menu_ReadyToGetMapList;
+        }
+
+        private void Menu_ReadyToGetMapList(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Menu_BackToStartGameMenuClicked(object sender, EventArgs e)

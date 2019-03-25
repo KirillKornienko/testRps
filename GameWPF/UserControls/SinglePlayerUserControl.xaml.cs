@@ -22,11 +22,18 @@ namespace GameWPF.UserControls
     {
         public event EventHandler BackToStartGameMenuClicked;
         public event EventHandler StartGameClicked;
+        public event EventHandler ReadyToGetMapList;
 
         public SinglePlayerUserControl()
         {
             InitializeComponent();
 
+            Loaded += SinglePlayerUserControl_Loaded;
+        }
+
+        private void SinglePlayerUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            ReadyToGetMapList(this, null);
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
