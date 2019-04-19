@@ -49,5 +49,17 @@ namespace GameWPF.Properties {
                 return ((string)(this["SPRITES_DIRECTORY_NAME"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".sav")]
+        public string SAVES_EXTENSION {
+            get {
+                return ((string)(this["SAVES_EXTENSION"]));
+            }
+            set {
+                this["SAVES_EXTENSION"] = value;
+            }
+        }
     }
 }

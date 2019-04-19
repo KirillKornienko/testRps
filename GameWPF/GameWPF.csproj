@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;StandartInheritanceModel</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -73,30 +73,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MapList.cs" />
-    <Compile Include="MenuActions\IActions.cs" />
-    <Compile Include="MenuActions\LoadGameMenuActions.cs" />
-    <Compile Include="MenuActions\MainMenuActions.cs" />
-    <Compile Include="MenuActions\SinglePlayerMenuActions.cs" />
-    <Compile Include="MenuActions\StartGameMenuActions.cs" />
+    <Compile Include="GameLogic\GameLogic.cs" />
+    <Compile Include="GameLogic\GameRules.cs" />
+    <Compile Include="GameLogic\TextureController.cs" />
+    <Compile Include="MapParams\MapList.cs" />
+    <Compile Include="MapParams\MapParameters.cs" />
+    <Compile Include="MapParams\ReadWriteStream.cs" />
+    <Compile Include="UI\MenuActions\IActions.cs" />
+    <Compile Include="UI\MenuActions\LoadGameMenuActions.cs" />
+    <Compile Include="UI\MenuActions\MainMenuActions.cs" />
+    <Compile Include="UI\MenuActions\NewMenuAction.cs" />
+    <Compile Include="UI\MenuActions\SinglePlayerMenuActions.cs" />
+    <Compile Include="UI\MenuActions\StartGameMenuActions.cs" />
     <Compile Include="TextureNameDecoding.cs" />
-    <Compile Include="UserControls\Elements\MapUserControl.xaml.cs">
+    <Compile Include="UI\UserControls\Elements\MapUserControl.xaml.cs">
       <DependentUpon>MapUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\GameUserControl.xaml.cs">
+    <Compile Include="UI\UserControls\GameUserControl.xaml.cs">
       <DependentUpon>GameUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\LoadGameUserControl.xaml.cs">
+    <Compile Include="UI\UserControls\IMenuUC.cs" />
+    <Compile Include="UI\UserControls\LoadGameUserControl.xaml.cs">
       <DependentUpon>LoadGameUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MenuUserControl.xaml.cs">
+    <Compile Include="UI\UserControls\MenuUserControl.xaml.cs">
       <DependentUpon>MenuUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="UserControls\SinglePlayerUserControl.xaml.cs">
+    <Compile Include="UI\UserControls\SinglePlayerUserControl.xaml.cs">
       <DependentUpon>SinglePlayerUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\StartGameUserControl.xaml.cs">
+    <Compile Include="UI\UserControls\StartGameUserControl.xaml.cs">
       <DependentUpon>StartGameUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -107,32 +114,32 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ArmyInfo.cs" />
+    <Compile Include="GameLogic\ArmyInfo.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\Elements\MapUserControl.xaml">
+    <Page Include="UI\UserControls\Elements\MapUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\GameUserControl.xaml">
+    <Page Include="UI\UserControls\GameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\LoadGameUserControl.xaml">
+    <Page Include="UI\UserControls\LoadGameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MenuUserControl.xaml">
+    <Page Include="UI\UserControls\MenuUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\SinglePlayerUserControl.xaml">
+    <Page Include="UI\UserControls\SinglePlayerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\StartGameUserControl.xaml">
+    <Page Include="UI\UserControls\StartGameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
