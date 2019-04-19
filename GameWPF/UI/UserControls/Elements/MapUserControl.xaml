@@ -14,10 +14,11 @@
             <ColumnDefinition Width="25*"/>
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
-        <Label Name="PlayersValue" Grid.Column="0"/>
-        <Label Name="MapSize" Grid.Column="1"/>
-        <Label Name="ScenarioName" Grid.Column="2"/>
-        <Label Name="VictoryConditions" Grid.Column="3"/>
-        <Label Name="DefeatConditions" Grid.Column="4"/>
+        <Label Name="PlayersValue" Grid.Column="0" FontSize="36"/>
+        <Label Name="MapSize" Grid.Column="1" FontSize="36"/>
+        <Label Name="ScenarioName" Grid.Column="2" FontSize="36"/>
+        <Label Name="VictoryConditions" Grid.Column="3" FontSize="36"/>
+        <Label Name="DefeatConditions" Grid.Column="4" FontSize="36"/>
+        <Button Name="MapButton" Grid.ColumnSpan="5" Opacity="0" Click="MapButton_Click" FontSize="36"/>
     </Grid>
 </UserControl>

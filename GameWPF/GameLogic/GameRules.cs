@@ -8,12 +8,13 @@ namespace GameWPF.GameLogic.GameRules
 {
     public enum VictoryConditions
     {
-
+        StandardVictory,
     }
 
 
     public enum DefeatConditions
     {
+        StandardDefeat,
 
     }
 }

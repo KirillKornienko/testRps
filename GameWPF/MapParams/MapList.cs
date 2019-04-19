@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Settings = GameWPF.Properties.Settings;
 
 namespace GameWPF.MapParams
 {
-    class MapList
+    static class MapList
     {
 
-        public List<MapParameters> GetMapList(string directory = null)
+        public static List<MapParameters> GetMapList(string directory = null)
         {
             try
             {
@@ -29,7 +28,6 @@ namespace GameWPF.MapParams
                     if (Path.GetExtension(file) == Settings.Default.MAPS_EXTENSION)
                         map_list.Add(new MapParameters(new MapRWStream(file, StreamType.Reader)).GetBasicParams());
                 }
-                //map_list.Reverse();
                 return map_list;
             }
             catch (Exception e)
@@ -38,9 +36,5 @@ namespace GameWPF.MapParams
             }
         }
 
-        private MapParameters ReadParameters(string filepath)
-        {
-            throw new Exception();
-        }
     }
 }

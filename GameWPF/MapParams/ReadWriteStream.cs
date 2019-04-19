@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+
+using GameWPF.GameLogic.GameRules;
 
 namespace GameWPF.MapParams
 {
@@ -29,33 +30,87 @@ namespace GameWPF.MapParams
 
         public BasicMapParams ReadBasicMapParams()
         {
-            byte 
-
-
+            byte players_value, width_size, height_size;
+            string scenario_name;
+            VictoryConditions victory_conditions;
+            DefeatConditions defeat_conditions;
 
             using (reader)
             {
+                string[] tmp;
+
+                scenario_name = reader.ReadLine();
+
+                tmp = reader.ReadLine().Split('x');
+                width_size = byte.Parse(tmp[0]);
+                height_size = byte.Parse(tmp[1]);
+
+                players_value = byte.Parse(reader.ReadLine());
+
+                SkipString(1);
+
+                var conditions = reader.ReadLine().ToCharArray();
+                victory_conditions = ParseVictoryConditions(conditions[0]);
+                defeat_conditions = ParseDefeatConditions(conditions[1]);
 
             }
-            
-            return new BasicMapParams()
+
+            return new BasicMapParams(players_value,
+                                        width_size,
+                                        height_size,
+                                        scenario_name,
+                                        victory_conditions,
+                                        defeat_conditions);
         }
 
 
-        public MapParameters ReadAllMapParams()
+        public AdvancedMapParams ReadAdvancedMapParams()
         {
 
             throw new NotImplementedException();
         }
 
-        public string ReadMapData()
+        public string ReadData()
         {
+            throw new NotImplementedException();
+        }
+
+        //public string ReadMapData()
+        //{
+
+        //}
+
+        //private string ReadScenarioName()
+        //{
+
+        //}
+
+        private VictoryConditions ParseVictoryConditions(char symbol)
+        {
+            switch (symbol)
+            {
+                default:
+                    return VictoryConditions.StandardVictory;
+            }
 
         }
 
-        private string ReadScenarioName()
+        private DefeatConditions ParseDefeatConditions(char symbol)
         {
+            switch (symbol)
+            {
+                default:
+                    return DefeatConditions.StandardDefeat;
+            }
 
+        }
+
+        private void SkipString(byte count)
+        {
+            while(count-- > 0)
+            {
+                reader.ReadLine();
+            }
         }
     }
 
@@ -65,19 +120,3 @@ namespace GameWPF.MapParams
         Writer
     }
 }
-
-//void Load(string filepath)
-//{
-//    map_filepath = filepath;
-//    //BitmapImg.MouseLeftButtonDown += MouseClickMapMenu;
-
-//    var file = File.OpenText(filepath);
-//    string[] MapSettings;
-//    MapInfo.MapName = file.ReadLine();
-//    MapSettings = file.ReadLine().Split('x');
-//    MapInfo.Max_width = Convert.ToInt32(MapSettings[0]);
-//    MapInfo.Max_height = Convert.ToInt32(MapSettings[1]);
-//    MapSettings = file.ReadLine().Split('v');
-//    MapInfo.Num_of_allies = Convert.ToInt32(MapSettings[0]) - 1;
-//    MapInfo.Num_of_enemies = Convert.ToInt32(MapSettings[1]);
-//}

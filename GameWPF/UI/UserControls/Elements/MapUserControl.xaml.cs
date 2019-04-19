@@ -5,13 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GameWPF.MapParams;
 
 namespace GameWPF.UserControls.Elements
 {
@@ -20,9 +14,25 @@ namespace GameWPF.UserControls.Elements
     /// </summary>
     public partial class MapUserControl : UserControl
     {
-        public MapUserControl()
+        public readonly MapParameters parameters;
+
+        public MapUserControl(MapParameters parameters)
         {
+            this.parameters = parameters;
+
             InitializeComponent();
+
+            PlayersValue.Content = parameters.Basic.players_value;
+            MapSize.Content = parameters.Basic.width_size + 'x' + parameters.Basic.height_size;
+            ScenarioName.Content = parameters.Basic.scenario_name;
+            VictoryConditions.Content = parameters.Basic.victory_conditions;
+            DefeatConditions.Content = parameters.Basic.defeat_conditions;
+        }
+
+        private void MapButton_Click(object sender, RoutedEventArgs e)
+        {
+            parameters.GetAdvancedParams();
+            MessageBox.Show("Hello!");
         }
     }
 }

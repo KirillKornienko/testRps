@@ -32,6 +32,13 @@ namespace GameWPF.MapParams
             return this;
         }
 
+        public void GetAdvancedParams()
+        {
+            Advanced = Advanced ?? stream.ReadAdvancedMapParams();
+
+
+        }
+
 
         public static MapParameters GetDirectoryParams(string filename)
         {
@@ -81,6 +88,12 @@ namespace GameWPF.MapParams
 
     public class AdvancedMapParams
     {
+        public readonly string scenario_description;
 
+
+        public AdvancedMapParams()
+        {
+            
+        }
     }
 }

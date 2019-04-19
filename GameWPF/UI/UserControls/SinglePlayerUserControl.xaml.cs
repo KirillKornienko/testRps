@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using GameWPF.UserControls.Elements;
+using GameWPF.MapParams;
+
 namespace GameWPF.UserControls
 {
     /// <summary>
@@ -31,10 +34,17 @@ namespace GameWPF.UserControls
             Loaded += SinglePlayerUserControl_Loaded;
         }
 
+        public void MapList_AddMap(MapParameters parameters)
+        {
+            MapList.Children.Add(new MapUserControl(parameters));
+        }
+
         private void SinglePlayerUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ReadyToGetMapList(this, null);
         }
+
+
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {

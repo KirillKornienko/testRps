@@ -1,6 +1,7 @@
 ﻿using System;
 
 using GameWPF.UserControls;
+using static GameWPF.MapParams.MapList;
 
 namespace GameWPF.MenuActions
 {
@@ -36,7 +37,12 @@ namespace GameWPF.MenuActions
 
         private void Menu_ReadyToGetMapList(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            foreach(var map in GetMapList())
+            {
+                menu.MapList_AddMap(map);
+            }
+
+            
         }
 
         private void Menu_BackToStartGameMenuClicked(object sender, EventArgs e)

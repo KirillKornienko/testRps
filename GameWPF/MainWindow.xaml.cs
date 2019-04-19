@@ -39,8 +39,8 @@ namespace GameWPF
             VisibleInfo.Player_position_y = VisibleInfo.Max_height / 2;
             VisibleInfo.Player_position_x = VisibleInfo.Max_width / 2;        //предположим, что x всегда нечётный (1)
 
-            bitmapobj = new Bitmap((int)grid.ActualWidth, (int)grid.ActualHeight);
-            graphics = Graphics.FromImage(bitmapobj);
+            //bitmapobj = new Bitmap((int)grid.ActualWidth, (int)grid.ActualHeight);
+            //graphics = Graphics.FromImage(bitmapobj);
 
         }
 

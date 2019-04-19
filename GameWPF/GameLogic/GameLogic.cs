@@ -75,8 +75,8 @@ namespace GameWPF.GameLogic
 
             MyPlayer = new Player("ИМЯ", BaseTown.Castle, Color.Green, 10000, 20, 20, 10, 10, 10, 10);
             ArmyInfo = new Dictionary<string, CreatureInfo>();
-            ArmyInitialized();
-            MyPlayerArmy = new MapArmyInfo(MyPlayer, new HeroesInfo[] { AdelaInitialized() });
+            //ArmyInitialized();
+            MyPlayerArmy = new MapArmyInfo(MyPlayer, new HeroesInfo[] { });
 
             for (int i = 0; i < Allies.Length; i++)
             {
@@ -134,18 +134,20 @@ namespace GameWPF.GameLogic
                 }
             }
 
-            min_y_border = (int)grid.ActualHeight / 11;
-            max_y_border = (int)grid.ActualHeight * 10 / 11;
-            min_x_border = (int)grid.ActualWidth / 11;
-            max_x_border = (int)grid.ActualWidth * 10 / 11;
+
+            //TODO: выставить правильные границы
+            min_y_border = (int)1000 / 11;
+            max_y_border = (int)1000 * 10 / 11;
+            min_x_border = (int)1500 / 11;
+            max_x_border = (int)1500 * 10 / 11;
             mouse_move = false;
 
-            //TODO:передавать коды необходимых текстур, кроме стандартных surfaceTypes
-            if (!LoadTextures(null))
-            {
-                //BitmapImg.MouseLeftButtonDown += MouseClickMenu;
-                return;
-            }
+            //TODO: передавать коды необходимых текстур, кроме стандартных surfaceTypes
+            //if (!LoadTextures(null))
+            //{
+            //    //BitmapImg.MouseLeftButtonDown += MouseClickMenu;
+            //    return;
+            //}
             SetEvents();
             Game();
             Rendering();

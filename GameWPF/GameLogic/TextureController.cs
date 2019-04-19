@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using ImageDraw = System.Drawing;
 
 namespace GameWPF.GameLogic
 {
     class TextureController
     {
-
+        Dictionary<SurfaceTypes, ImageDraw.Image> SurfaceTextures;
 
 
         //TODO: Текстуры могут не грузиться, 
@@ -32,7 +34,7 @@ namespace GameWPF.GameLogic
             }
             catch (FileNotFoundException e)
             {
-                MessageBox.Show("Texture file " + e.Message + " not found.");
+                //MessageBox.Show("Texture file " + e.Message + " not found.");
                 return false;
             }
         }
