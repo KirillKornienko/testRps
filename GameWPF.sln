@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWPF", "GameWPF\GameWPF.csproj", "{055E1CFD-9AEF-4636-8C9E-EAD55806C60D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditor", "MapEditor\MapEditor.csproj", "{55286E7D-8ABA-4B1F-8456-9015B87C85B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{055E1CFD-9AEF-4636-8C9E-EAD55806C60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{055E1CFD-9AEF-4636-8C9E-EAD55806C60D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{055E1CFD-9AEF-4636-8C9E-EAD55806C60D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55286E7D-8ABA-4B1F-8456-9015B87C85B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55286E7D-8ABA-4B1F-8456-9015B87C85B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55286E7D-8ABA-4B1F-8456-9015B87C85B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55286E7D-8ABA-4B1F-8456-9015B87C85B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A0654AF3-9B70-4688-8C53-1554DAE5CC3B}
 	EndGlobalSection
 EndGlobal

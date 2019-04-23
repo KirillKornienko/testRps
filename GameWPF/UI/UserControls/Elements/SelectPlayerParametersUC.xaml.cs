@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GameWPF
+namespace GameWPF.UI.UserControls.Elements
 {
     /// <summary>
-    /// Логика взаимодействия для MenuUserControl.xaml
+    /// Логика взаимодействия для SelectPlayerParametersUC.xaml
     /// </summary>
-    public partial class MenuUserControl : UserControl
+    public partial class SelectPlayerParametersUC : UserControl
     {
-        public MenuUserControl()
+        public SelectPlayerParametersUC()
         {
             InitializeComponent();
         }
+
+
     }
 }

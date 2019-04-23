@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="GameWPF.UserControls.StartGameUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GameWPF.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1.9*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="0.9*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image x:Name="StartGameBackground" Grid.ColumnSpan="5" Grid.RowSpan="7" Stretch="Fill" Source="/Images/StartGameMenu.jpg"/>
+        <Button Name="SinglePlayer" Grid.Column="1" Grid.Row="1" Click="SinglePlayer_Click" Opacity="0"/>
+        <Button Name="BackToMainMenu" Grid.Column="1" Grid.Row="5" Click="BackToMainMenu_Click" Opacity="0"></Button>
+
+    </Grid>
+</UserControl>
