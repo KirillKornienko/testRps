@@ -1,7 +1,12 @@
 ﻿using System;
+using System.IO;
 
 using GameWPF.UserControls;
-using static GameWPF.MapParams.MapList;
+using GameWPF.UserControls.Elements;
+using GameWPF.MenuActions.Elements;
+using GameWPF.MapParams;
+using Settings = GameWPF.Properties.Settings;
+
 
 namespace GameWPF.MenuActions
 {
@@ -12,6 +17,8 @@ namespace GameWPF.MenuActions
 
         private SinglePlayerUserControl menu;
         private Actions back_action;
+
+        private MapElementActions selected_map;
 
         public SinglePlayerMenuActions(Actions back_action)
         {
@@ -37,12 +44,7 @@ namespace GameWPF.MenuActions
 
         private void Menu_ReadyToGetMapList(object sender, EventArgs e)
         {
-            foreach(var map in GetMapList())
-            {
-                menu.MapList_AddMap(map);
-            }
-
-            
+            FillMapList();
         }
 
         private void Menu_BackToStartGameMenuClicked(object sender, EventArgs e)
@@ -54,7 +56,13 @@ namespace GameWPF.MenuActions
 
         private void Menu_StartGameClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if(selected_map != null)
+                StartGame();
+        }
+
+        private void StartGame()
+        {
+
         }
 
         protected override void NewElementSubscription(IActions actions)
@@ -66,6 +74,39 @@ namespace GameWPF.MenuActions
         public override void Returned()
         {
             NewElement(this, menu);
+        }
+
+        public void FillMapList(string directory = null)
+        {
+            if (directory != null && directory != Settings.Default.MAPS_DIRECTORY_NAME)
+                new MapElementActions(this, GetReturnedElement(directory));
+
+            foreach (var map in MapList.GetMapList(directory))
+            {
+                new MapElementActions(this, map);
+            }
+        }
+
+        public void AddMapElement(MapUserControl element)
+        {
+            menu.MapList_AddMap(element);
+        }
+
+        public void ClearMapElements()
+        {
+            menu.MapList_Clear();
+        }
+
+        public void MapSelected(MapElementActions map)
+        {
+            selected_map = map;
+
+
+        }
+
+        private MapParameters GetReturnedElement(string directory)
+        {
+            return MapParameters.GetDirectoryParams(Path.GetDirectoryName(directory));
         }
     }
 }

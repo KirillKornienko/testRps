@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.IO;
+
 using GameWPF.MapParams;
+using Settings = GameWPF.Properties.Settings;
+
 
 namespace GameWPF.UserControls.Elements
 {
@@ -14,25 +17,46 @@ namespace GameWPF.UserControls.Elements
     /// </summary>
     public partial class MapUserControl : UserControl
     {
-        public readonly MapParameters parameters;
+        public event EventHandler Clicked;
 
-        public MapUserControl(MapParameters parameters)
+        public event EventHandler DoubleClicked;
+
+        public MapUserControl()
         {
-            this.parameters = parameters;
-
             InitializeComponent();
-
-            PlayersValue.Content = parameters.Basic.players_value;
-            MapSize.Content = parameters.Basic.width_size + 'x' + parameters.Basic.height_size;
-            ScenarioName.Content = parameters.Basic.scenario_name;
-            VictoryConditions.Content = parameters.Basic.victory_conditions;
-            DefeatConditions.Content = parameters.Basic.defeat_conditions;
         }
 
         private void MapButton_Click(object sender, RoutedEventArgs e)
         {
-            parameters.GetAdvancedParams();
-            MessageBox.Show("Hello!");
+            Clicked(this, null);
+        }
+
+        public void SetContent(MapParameters parameters)
+        {
+            if (!parameters.IsFolder())
+            {
+                ScenarioName.Content = parameters.Basic.scenario_name;
+                PlayersValue.Content = parameters.Basic.players_value;
+                MapSize.Content = parameters.Basic.width_size.ToString() + 'x' + parameters.Basic.height_size.ToString();
+                VictoryConditions.Content = parameters.Basic.victory_conditions;
+                DefeatConditions.Content = parameters.Basic.defeat_conditions;
+            }
+            else
+            {
+                string name = Path.GetFileName(parameters.Basic.scenario_name);
+                if (name == Settings.Default.MAPS_DIRECTORY_NAME)
+                {
+                    ScenarioName.Content = "...";
+                }
+                else
+                    ScenarioName.Content = name;
+
+            }
+        }
+
+        private void MapButton_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DoubleClicked(this, null);
         }
     }
 }

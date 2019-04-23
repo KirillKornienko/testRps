@@ -10,21 +10,16 @@ namespace GameWPF.MapParams
 {
     public class MapRWStream
     {
-        public readonly string filename;
+        public readonly string filepath;
 
         private StreamReader reader;
 
         private StreamWriter writer;
 
 
-        public MapRWStream(string filename, StreamType type)
+        public MapRWStream(string filename)
         {
-            this.filename = filename;
-
-            if (type == StreamType.Reader)
-                reader = new StreamReader(filename);
-            else
-                writer = new StreamWriter(filename);
+            this.filepath = filename;
         }
 
 
@@ -35,13 +30,11 @@ namespace GameWPF.MapParams
             VictoryConditions victory_conditions;
             DefeatConditions defeat_conditions;
 
-            using (reader)
+            using (reader = new StreamReader(filepath))
             {
-                string[] tmp;
-
                 scenario_name = reader.ReadLine();
 
-                tmp = reader.ReadLine().Split('x');
+                var tmp = reader.ReadLine().Split('x');
                 width_size = byte.Parse(tmp[0]);
                 height_size = byte.Parse(tmp[1]);
 
@@ -66,8 +59,32 @@ namespace GameWPF.MapParams
 
         public AdvancedMapParams ReadAdvancedMapParams()
         {
+            string description;
+            byte allowed_colors;
+            List<ushort> allowed_towns = new List<ushort>();
 
-            throw new NotImplementedException();
+            using (reader = new StreamReader(filepath))
+            {
+                SkipString(5);
+
+                description = reader.ReadLine();
+
+                allowed_colors = Convert.ToByte(reader.Read());
+
+                for (; ; )
+                {
+                    int symbol = reader.Read();
+
+                    if (symbol == 512)
+                        break;
+
+                    allowed_towns.Add(Convert.ToUInt16(symbol));
+                }
+            }
+
+            return new AdvancedMapParams(description,
+                allowed_colors,
+                allowed_towns);
         }
 
         public string ReadData()

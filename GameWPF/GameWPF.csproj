@@ -73,12 +73,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GameLogic\GameRules\Difficult.cs" />
     <Compile Include="GameLogic\GameLogic.cs" />
-    <Compile Include="GameLogic\GameRules.cs" />
+    <Compile Include="GameLogic\GameRules\GameRules.cs" />
+    <Compile Include="GameLogic\GameRules\PlayerInfo.cs" />
+    <Compile Include="GameLogic\GameRules\StartBonus.cs" />
     <Compile Include="GameLogic\TextureController.cs" />
     <Compile Include="MapParams\MapList.cs" />
     <Compile Include="MapParams\MapParameters.cs" />
     <Compile Include="MapParams\ReadWriteStream.cs" />
+    <Compile Include="UI\MenuActions\Elements\MapAction.cs" />
     <Compile Include="UI\MenuActions\IActions.cs" />
     <Compile Include="UI\MenuActions\LoadGameMenuActions.cs" />
     <Compile Include="UI\MenuActions\MainMenuActions.cs" />
@@ -89,10 +93,12 @@
     <Compile Include="UI\UserControls\Elements\MapUserControl.xaml.cs">
       <DependentUpon>MapUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\Elements\SelectPlayerParametersUC.xaml.cs">
+      <DependentUpon>SelectPlayerParametersUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\GameUserControl.xaml.cs">
       <DependentUpon>GameUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls\IMenuUC.cs" />
     <Compile Include="UI\UserControls\LoadGameUserControl.xaml.cs">
       <DependentUpon>LoadGameUserControl.xaml</DependentUpon>
     </Compile>
@@ -120,6 +126,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\UserControls\Elements\MapUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\Elements\SelectPlayerParametersUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

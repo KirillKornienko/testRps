@@ -40,12 +40,15 @@ namespace GameWPF.MapParams
         }
 
 
-        public static MapParameters GetDirectoryParams(string filename)
+        public static MapParameters GetDirectoryParams(string filepath)
         {
-            return new MapParameters(new BasicMapParams(filename));
+            return new MapParameters(BasicMapParams.GetDirectoryBasicParams(filepath));
         }
 
-
+        public bool IsFolder()
+        {
+            return Basic.players_value == 0;
+        }
     }
 
 
@@ -78,22 +81,50 @@ namespace GameWPF.MapParams
             this.defeat_conditions = defeat_conditions;
         }
 
-        public BasicMapParams(string directory_name)
+        private BasicMapParams(string directory_name)
         {
-            scenario_name = directory_name;
             players_value = 0;
+            scenario_name = directory_name;
+        }
+
+        public static BasicMapParams GetDirectoryBasicParams(string directory_name)
+        {
+            return new BasicMapParams(directory_name);
         }
     }
 
 
     public class AdvancedMapParams
     {
-        public readonly string scenario_description;
+        public readonly string description;
+
+        public PlayerColor[] colors;
+
+        public readonly List<ushort> allowed_towns;
+
+        public PlayerInfo[] players_info;
 
 
-        public AdvancedMapParams()
+        public AdvancedMapParams(string description, byte allowed_colors, List<ushort> allowed_towns)
         {
-            
+            this.description = description;
+            this.allowed_towns = allowed_towns;
+
+            GetAllowedColors(allowed_colors);
         }
+
+        private void GetAllowedColors(byte allowed_colors)
+        {
+            List<PlayerColor> list_colors = new List<PlayerColor>(8);
+
+            for (int i = 1; i < 255; i = i << 1)
+            {
+                if ((allowed_colors & i) == i)
+                    list_colors.Add((PlayerColor)i);
+            }
+
+            colors = list_colors.ToArray();
+        }
+
     }
 }

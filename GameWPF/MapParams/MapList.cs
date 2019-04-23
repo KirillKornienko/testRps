@@ -12,8 +12,8 @@ namespace GameWPF.MapParams
 
         public static List<MapParameters> GetMapList(string directory = null)
         {
-            try
-            {
+            //try
+            //{
                 string directory_name = directory ?? Settings.Default.MAPS_DIRECTORY_NAME;
 
                 List<MapParameters> map_list = new List<MapParameters>();
@@ -26,14 +26,14 @@ namespace GameWPF.MapParams
                 foreach (var file in Directory.GetFiles(directory_name))
                 {
                     if (Path.GetExtension(file) == Settings.Default.MAPS_EXTENSION)
-                        map_list.Add(new MapParameters(new MapRWStream(file, StreamType.Reader)).GetBasicParams());
+                        map_list.Add(new MapParameters(new MapRWStream(file)).GetBasicParams());
                 }
                 return map_list;
-            }
-            catch (Exception e)
-            {
-                throw new Exception();
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    throw new Exception();
+            //}
         }
 
     }

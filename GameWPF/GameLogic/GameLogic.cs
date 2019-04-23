@@ -14,6 +14,7 @@ using Settings = GameWPF.Properties.Settings;
 
 namespace GameWPF.GameLogic
 {
+    /*
     class GameLogic
     {
         int width, height;
@@ -551,13 +552,13 @@ namespace GameWPF.GameLogic
         public static int Camera_position_x;
         public static int Camera_position_y;
     }
-    struct PlayerInfo
-    {
-        public static Player player;
-        public static double Max_move;     //Максимальная дальность ходьбы на 1 ход
-        public static double Standart_move;        //Максимальная дальность хода для героя (стандартная)
-        public static double Move;
-    }
+    //struct PlayerInfo
+    //{
+    //    public static Player player;
+    //    public static double Max_move;     //Максимальная дальность ходьбы на 1 ход
+    //    public static double Standart_move;        //Максимальная дальность хода для героя (стандартная)
+    //    public static double Move;
+    //}
     class MapCellInfo
     {
         public MapCellInfo() { }
@@ -622,35 +623,6 @@ namespace GameWPF.GameLogic
             Y_way = Y_position + VisibleInfo.Camera_position_y - MapInfo.Player_position_y;
 
         }
-
-    }
-    class Player
-    {
-        public Player(string name, BaseTown basetown, Color color, int gold, int wood, int ore, int mercury, int sulfur, int crystal, int gems)
-        {
-            this.name = name;
-            this.basetown = basetown;
-            this.color = color;
-            this.gold = gold;
-            this.wood = wood;
-            this.ore = ore;
-            this.mercury = mercury;
-            this.sulfur = sulfur;
-            this.crystal = crystal;
-            this.gems = gems;
-
-        }
-
-        public string name { get; set; }
-        public Color color { get; set; }
-        public BaseTown basetown { get; set; }
-        public int gold { get; set; }
-        public int wood { get; set; }
-        public int ore { get; set; }
-        public int mercury { get; set; }
-        public int sulfur { get; set; }
-        public int crystal { get; set; }
-        public int gems { get; set; }
 
     }
     // Информация о всех героях у игрока
@@ -901,17 +873,6 @@ namespace GameWPF.GameLogic
         public byte level { get; private set; }
         public bool Modernized { get; private set; }
     }
-    enum SurfaceTypes
-    {
-        NULL,
-        ground,    // ground 
-        grass,    // grass
-        water,    // water
-        sand,    // sand
-        snow,    // snow
-        bog,    // bog
-        lava,    // lava
-    }
     enum Buildings
     {
         NULL, Home, Wall, Mountain1, Tree1,
@@ -941,13 +902,18 @@ namespace GameWPF.GameLogic
 
 
     }
-    enum Difficult
+    */
+
+    enum SurfaceTypes
     {
-        Low, Medium, Hard,
-    }
-    enum BaseTown
-    {
-        Castle, Tower, Rampart, Inferno, Necropolis, Dungeon, Stronghold, Fortress, Conflux
+        NULL,
+        ground,    // ground 
+        grass,    // grass
+        water,    // water
+        sand,    // sand
+        snow,    // snow
+        bog,    // bog
+        lava,    // lava
     }
 
 }

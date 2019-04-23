@@ -33,11 +33,11 @@ namespace GameWPF
             menu_actions.Initialize();
 
 
-            VisibleInfo.Max_width = (int)grid.ActualWidth / 64;        // !!Сетка не изменяется при изменении разрешения!!
-            VisibleInfo.Max_height = (int)grid.ActualHeight / 64;
+            //VisibleInfo.Max_width = (int)grid.ActualWidth / 64;        // !!Сетка не изменяется при изменении разрешения!!
+            //VisibleInfo.Max_height = (int)grid.ActualHeight / 64;
 
-            VisibleInfo.Player_position_y = VisibleInfo.Max_height / 2;
-            VisibleInfo.Player_position_x = VisibleInfo.Max_width / 2;        //предположим, что x всегда нечётный (1)
+            //VisibleInfo.Player_position_y = VisibleInfo.Max_height / 2;
+            //VisibleInfo.Player_position_x = VisibleInfo.Max_width / 2;        //предположим, что x всегда нечётный (1)
 
             //bitmapobj = new Bitmap((int)grid.ActualWidth, (int)grid.ActualHeight);
             //graphics = Graphics.FromImage(bitmapobj);

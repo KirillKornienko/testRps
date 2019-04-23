@@ -5,16 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using GameWPF.UserControls.Elements;
-using GameWPF.MapParams;
 
 namespace GameWPF.UserControls
 {
@@ -34,9 +26,14 @@ namespace GameWPF.UserControls
             Loaded += SinglePlayerUserControl_Loaded;
         }
 
-        public void MapList_AddMap(MapParameters parameters)
+        public void MapList_AddMap(MapUserControl element)
         {
-            MapList.Children.Add(new MapUserControl(parameters));
+            MapList.Children.Add(element);
+        }
+
+        public void MapList_Clear()
+        {
+            MapList.Children.Clear();
         }
 
         private void SinglePlayerUserControl_Loaded(object sender, RoutedEventArgs e)
