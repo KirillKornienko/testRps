@@ -12,10 +12,6 @@ namespace GameWPF.MapParams
     {
         public readonly string filepath;
 
-        private StreamReader reader;
-
-        private StreamWriter writer;
-
 
         public MapRWStream(string filename)
         {
@@ -30,7 +26,7 @@ namespace GameWPF.MapParams
             VictoryConditions victory_conditions;
             DefeatConditions defeat_conditions;
 
-            using (reader = new StreamReader(filepath))
+            using (var reader = new StreamReader(filepath))
             {
                 scenario_name = reader.ReadLine();
 
@@ -40,7 +36,7 @@ namespace GameWPF.MapParams
 
                 players_value = byte.Parse(reader.ReadLine());
 
-                SkipString(1);
+                SkipString(reader, 1);
 
                 var conditions = reader.ReadLine().ToCharArray();
                 victory_conditions = ParseVictoryConditions(conditions[0]);
@@ -63,9 +59,9 @@ namespace GameWPF.MapParams
             byte allowed_colors;
             List<ushort> allowed_towns = new List<ushort>();
 
-            using (reader = new StreamReader(filepath))
+            using (var reader = new StreamReader(filepath))
             {
-                SkipString(5);
+                SkipString(reader, 5);
 
                 description = reader.ReadLine();
 
@@ -122,7 +118,7 @@ namespace GameWPF.MapParams
 
         }
 
-        private void SkipString(byte count)
+        private void SkipString(StreamReader reader, byte count)
         {
             while(count-- > 0)
             {
