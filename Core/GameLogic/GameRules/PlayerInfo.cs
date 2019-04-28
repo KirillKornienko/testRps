@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using static GameWPF.GameLogic.GameRules.DifficultDictionary;
+using static Core.GameLogic.GameRules.DifficultDictionary;
 
-namespace GameWPF.GameLogic.GameRules
+namespace Core.GameLogic.GameRules
 {
     public class PlayerInfo
     {

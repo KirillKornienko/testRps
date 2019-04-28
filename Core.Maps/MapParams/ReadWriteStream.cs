@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-using GameWPF.GameLogic.GameRules;
+using Core.GameLogic.GameRules;
 
-namespace GameWPF.MapParams
+namespace Core.Maps.MapParams
 {
     public class MapRWStream
     {
