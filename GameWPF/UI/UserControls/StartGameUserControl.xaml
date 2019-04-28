@@ -8,22 +8,31 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1.9*"></ColumnDefinition>
+            <ColumnDefinition Width="539*"/>
+            <ColumnDefinition Width="124*"/>
+            <ColumnDefinition Width="137*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.6*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="0.9*"></RowDefinition>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.9*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="StartGameBackground" Grid.ColumnSpan="5" Grid.RowSpan="7" Stretch="Fill" Source="/Images/StartGameMenu.jpg"/>
-        <Button Name="SinglePlayer" Grid.Column="1" Grid.Row="1" Click="SinglePlayer_Click" Opacity="0"/>
-        <Button Name="BackToMainMenu" Grid.Column="1" Grid.Row="5" Click="BackToMainMenu_Click" Opacity="0"></Button>
+
+        <Image x:Name="StartGameBackground" Grid.ColumnSpan="3" Grid.RowSpan="7" Stretch="Fill">
+            <Image.Source>
+                <BitmapImage UriSource="pack://siteoforigin:,,,/data/bitmaps/CREDITS_HD_x2.png"/>
+            </Image.Source>
+        </Image>
+
+        <Image Name="SinglePlayer" Grid.Column="1" Grid.Row="1"/>
+        <Image Name="Multiplayer" Grid.Column="1" Grid.Row="2"/>
+        <Image Name="Campaign" Grid.Column="1" Grid.Row="3"/>
+        <Image Name="Guide" Grid.Column="1" Grid.Row="4"/>
+        <Image Name="BackToMainMenu" Grid.Column="1" Grid.Row="5"/>
 
     </Grid>
 </UserControl>

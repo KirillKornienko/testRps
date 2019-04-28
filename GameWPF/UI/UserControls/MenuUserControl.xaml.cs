@@ -13,83 +13,51 @@ namespace GameWPF.UserControls
     /// </summary>
     public partial class MenuUserControl : UserControl
     {
-        private Dictionary<string, BitmapImage> get_image;
+        private Dictionary<string, BitmapImage> get_BtmpImg;
 
-        private Dictionary<Button, string> ButtonToImageKey;
-
-        private Dictionary<Button, Image> GetImageName;
+        private Dictionary<Image, string> ImageKeysDict;
 
 
         public MenuUserControl()
         {
             InitializeComponent();
 
-            Loaded += MenuUserControl_Loaded;
+            Loaded += CurrentUserControl_Loaded;
         }
 
-        private void MenuUserControl_Loaded(object sender, RoutedEventArgs e)
+        private void CurrentUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            get_image = new Dictionary<string, BitmapImage>();
-
             InitImageKeyDict();
 
-            LoadSprites();
+            LoadStdSprites();
 
             EventsSubscription();
         }
 
         private void EventsSubscription()
         {
-            StartGame.MouseEnter += Button_MouseEnter;
-            StartGame.MouseLeave += Button_MouseLeave;
-            StartGame.MouseDown += Button_MouseDown;
-            StartGame.MouseUp += StartGame_MouseUp;
+            foreach (var button_img in ImageKeysDict.Keys)
+            {
+                button_img.MouseEnter += (obj, e) => SetImage((Image)obj, MouseActions.Enter);
+                button_img.MouseLeave += (obj, e) => SetImage((Image)obj, MouseActions.Leave);
+                button_img.MouseLeftButtonDown += (obj, e) => SetImage((Image)obj, MouseActions.Down);
+            }
 
-            LoadGame.MouseEnter += Button_MouseEnter;
-            LoadGame.MouseLeave += Button_MouseLeave;
-            LoadGame.MouseDown += Button_MouseDown;
-            LoadGame.MouseUp += LoadGame_MouseUp;
-
-            HallOfFame.MouseEnter += Button_MouseEnter;
-            HallOfFame.MouseLeave += Button_MouseLeave;
-            HallOfFame.MouseDown += Button_MouseDown;
-            HallOfFame.MouseUp += HallOfFame_MouseUp;
-
-            About.MouseEnter += Button_MouseEnter;
-            About.MouseLeave += Button_MouseLeave;
-            About.MouseDown += Button_MouseDown;
-            About.MouseUp += About_MouseUp;
-
-            Quit.MouseEnter += Button_MouseEnter;
-            Quit.MouseLeave += Button_MouseLeave;
-            Quit.MouseDown += Button_MouseDown;
-            Quit.MouseUp += Quit_MouseUp;
+            StartGame.MouseLeftButtonUp += StartGame_MouseUp;
+            LoadGame.MouseLeftButtonUp += LoadGame_MouseUp;
+            HallOfFame.MouseLeftButtonUp += HallOfFame_MouseUp;
+            About.MouseLeftButtonUp += About_MouseUp;
+            Quit.MouseLeftButtonUp += Quit_MouseUp;
         }
 
 
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            GetImageName[(Button)sender].Source = GetImage((Button)sender, MouseActions.Enter);
-        }
-
-        private void Button_MouseLeave(object sender, MouseEventArgs e)
-        {
-            GetImageName[(Button)sender].Source = GetImage((Button)sender, MouseActions.Leave);
-        }
-
-        private void Button_MouseDown(object sender, MouseEventArgs e)
-        {
-            GetImageName[(Button)sender].Source = GetImage((Button)sender, MouseActions.Down);
-        }
-
-
-        private BitmapImage GetImage(Button button, MouseActions action)
+        private BitmapImage GetImage(Image button, MouseActions action)
         {
             string sprite_name = GetSpriteName(button, action);
 
             try
             {
-                return get_image[sprite_name];
+                return get_BtmpImg[sprite_name];
             }
             catch (KeyNotFoundException)
             {
@@ -97,7 +65,7 @@ namespace GameWPF.UserControls
             }
         }
 
-        private string GetSpriteName(Button button, MouseActions action)
+        private string GetSpriteName(Image button, MouseActions action)
         {
             char symbol;
 
@@ -108,7 +76,7 @@ namespace GameWPF.UserControls
             else
                 symbol = 'S';
 
-            return ButtonToImageKey[button] + symbol;
+            return ImageKeysDict[button] + symbol;
         }
 
         private BitmapImage AddImage(string filename)
@@ -119,37 +87,42 @@ namespace GameWPF.UserControls
             src.UriSource = new Uri("pack://siteoforigin:,,,/data/LOC/sprite/" + filename + ".png");
             src.EndInit();
 
-            get_image.Add(filename, src);
+            get_BtmpImg.Add(filename, src);
 
             return src;
         }
 
 
+        private void SetImage(Image sender, MouseActions action)
+        {
+            sender.Source = GetImage(sender, action);
+        }
+
 
         private void StartGame_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ((Button)sender).Content = GetImage((Button)sender, MouseActions.Leave);
+            SetImage((Image)sender, MouseActions.Leave);
 
             StartGameClicked();
         }
 
         private void LoadGame_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ((Button)sender).Content = GetImage((Button)sender, MouseActions.Leave);
+            SetImage((Image)sender, MouseActions.Leave);
 
             LoadGameClicked();
         }
 
         private void HallOfFame_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ((Button)sender).Content = GetImage((Button)sender, MouseActions.Leave);
+            SetImage((Image)sender, MouseActions.Leave);
 
             HallOfFameClicked();
         }
 
         private void About_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ((Button)sender).Content = GetImage((Button)sender, MouseActions.Leave);
+            SetImage((Image)sender, MouseActions.Leave);
 
 
             throw new NotImplementedException();
@@ -157,41 +130,30 @@ namespace GameWPF.UserControls
 
         private void Quit_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ((Button)sender).Content = GetImage((Button)sender, MouseActions.Leave);
+            SetImage((Image)sender, MouseActions.Leave);
 
-
-            throw new NotImplementedException();
-        }
-
-
-
-        private void ExitGameClick(object sender, RoutedEventArgs e)
-        {
             Application.Current.Shutdown();
         }
 
-        private void LoadSprites()
+
+
+        private void LoadStdSprites()
         {
-            
+            foreach(var image in ImageKeysDict.Keys)
+                SetImage(image, MouseActions.Leave);
         }
 
         private void InitImageKeyDict()
         {
-            ButtonToImageKey = new Dictionary<Button, string>();
+            get_BtmpImg = new Dictionary<string, BitmapImage>();
 
-            ButtonToImageKey.Add(StartGame, "GTSINGL");
-            ButtonToImageKey.Add(LoadGame, "MMENULG");
-            ButtonToImageKey.Add(HallOfFame, "MMENUHS");
-            ButtonToImageKey.Add(About, "MMENUCR");
-            ButtonToImageKey.Add(Quit, "MMENUQT");
+            ImageKeysDict = new Dictionary<Image, string>();
 
-
-            GetImageName = new Dictionary<Button, Image>();
-            GetImageName.Add(StartGame, StartGameImage);
-            GetImageName.Add(LoadGame, LoadGameImage);
-            GetImageName.Add(HallOfFame, HallOfFameImage);
-            GetImageName.Add(About, AboutImage);
-            GetImageName.Add(Quit, QuitImage);
+            ImageKeysDict.Add(StartGame, "MMENUNG");
+            ImageKeysDict.Add(LoadGame, "MMENULG");
+            ImageKeysDict.Add(HallOfFame, "MMENUHS");
+            ImageKeysDict.Add(About, "MMENUCR");
+            ImageKeysDict.Add(Quit, "MMENUQT");
         }
 
 

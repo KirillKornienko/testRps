@@ -9,17 +9,17 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="539*"></ColumnDefinition>
-            <ColumnDefinition Width="127*"></ColumnDefinition>
-            <ColumnDefinition Width="134*"></ColumnDefinition>
+            <ColumnDefinition Width="539*"/>
+            <ColumnDefinition Width="127*"/>
+            <ColumnDefinition Width="134*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.6*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="0.9*"/>
         </Grid.RowDefinitions>
         <Image x:Name="Background" Grid.ColumnSpan="3" Grid.RowSpan="7" Stretch="Fill">
@@ -27,21 +27,11 @@
                 <BitmapImage UriSource="pack://siteoforigin:,,,/data/bitmaps/CREDITS_HD_x2.png"/>
             </Image.Source>
         </Image>
-        <Button Name="StartGame" Grid.Column="1" Grid.Row="1">
-            <Image x:Name="StartGameImage"/>
-        </Button>
-        <Button Name="LoadGame" Grid.Column="1" Grid.Row="2">
-            <Image x:Name="LoadGameImage"/>
-        </Button>
-        <Button Name="HallOfFame" Grid.Column="1" Grid.Row="3">
-            <Image x:Name="HallOfFameImage"/>
-        </Button>
-        <Button Name="About" Grid.Column="1" Grid.Row="4">
-            <Image x:Name="AboutImage"/>
-        </Button>
-        <Button Name="Quit" Grid.Column="1" Grid.Row="5" Click="ExitGameClick">
-            <Image x:Name="QuitImage"/>
-        </Button>
+        <Image Name="StartGame" Grid.Column="1" Grid.Row="1"/>
+        <Image Name="LoadGame" Grid.Column="1" Grid.Row="2"/>
+        <Image Name="HallOfFame" Grid.Column="1" Grid.Row="3"/>
+        <Image Name="About" Grid.Column="1" Grid.Row="4"/>
+        <Image Name="Quit" Grid.Column="1" Grid.Row="5"/>
 
     </Grid>
 

@@ -24,14 +24,14 @@ namespace GameWPF.MenuActions
             menu.BackToMainMenuClicked += Menu_BackToMainMenuClicked;
         }
 
-        private void Menu_BackToMainMenuClicked(object sender, EventArgs e)
+        private void Menu_BackToMainMenuClicked()
         {
             DeleteElements(this, null);
 
             back_action.Returned();
         }
 
-        private void Menu_SinglePlayerClicked(object sender, EventArgs e)
+        private void Menu_SinglePlayerClicked()
         {
             DeleteElements(this, null);
 
