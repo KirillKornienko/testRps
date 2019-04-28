@@ -6,10 +6,9 @@
 /GameWPF/obj
 /GameWPF/bin
 /maps/TestMap (2).map
-/Core/bin/Debug
+/Core/bin
 /Core/obj
 /Core.Maps/bin
 /Core.Maps/obj
 /MapEditor/bin
 /MapEditor/obj
-/MapEditor/obj/Debug
