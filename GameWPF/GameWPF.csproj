@@ -40,14 +40,14 @@
     <DefineConstants>TRACE;DEBUG;StandartInheritanceModel</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;StandartInheritanceModel</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -73,15 +73,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GameLogic\GameRules\Difficult.cs" />
-    <Compile Include="GameLogic\GameLogic.cs" />
-    <Compile Include="GameLogic\GameRules\GameRules.cs" />
-    <Compile Include="GameLogic\GameRules\PlayerInfo.cs" />
-    <Compile Include="GameLogic\GameRules\StartBonus.cs" />
-    <Compile Include="GameLogic\TextureController.cs" />
-    <Compile Include="MapParams\MapList.cs" />
-    <Compile Include="MapParams\MapParameters.cs" />
-    <Compile Include="MapParams\ReadWriteStream.cs" />
     <Compile Include="UI\MenuActions\Elements\MapAction.cs" />
     <Compile Include="UI\MenuActions\IActions.cs" />
     <Compile Include="UI\MenuActions\LoadGameMenuActions.cs" />
@@ -96,6 +87,7 @@
     <Compile Include="UI\UserControls\Elements\SelectPlayerParametersUC.xaml.cs">
       <DependentUpon>SelectPlayerParametersUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\Enums.cs" />
     <Compile Include="UI\UserControls\GameUserControl.xaml.cs">
       <DependentUpon>GameUserControl.xaml</DependentUpon>
     </Compile>
@@ -120,7 +112,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GameLogic\ArmyInfo.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -196,13 +187,29 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\menu.jpg" />
+    <Content Include="Images\menu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\StartGameMenu.jpg" />
+    <Content Include="Images\StartGameMenu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\SingleGameMenu.jpg" />
+    <Content Include="Images\SingleGameMenu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{5cdcd480-97c7-4a47-8b4c-70dd5c9e1d44}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Maps\Core.Maps.csproj">
+      <Project>{589a6b4b-748d-4d9a-abd3-b12d55430ff8}</Project>
+      <Name>Core.Maps</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

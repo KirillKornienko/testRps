@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GameWPF.UserControls.Elements;
-using GameWPF.MapParams;
+using Core.Maps.MapParams;
 
 
 namespace GameWPF.MenuActions.Elements

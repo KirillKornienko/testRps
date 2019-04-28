@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameWPF.GameLogic.GameRules
+namespace Core.GameLogic.GameRules
 {
     public enum StartBonus
     {

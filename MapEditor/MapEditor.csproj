@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Maps\Core.Maps.csproj">
+      <Project>{589a6b4b-748d-4d9a-abd3-b12d55430ff8}</Project>
+      <Name>Core.Maps</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

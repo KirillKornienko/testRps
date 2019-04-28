@@ -25,24 +25,6 @@ namespace GameWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("maps")]
-        public string MAPS_DIRECTORY_NAME {
-            get {
-                return ((string)(this["MAPS_DIRECTORY_NAME"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".map")]
-        public string MAPS_EXTENSION {
-            get {
-                return ((string)(this["MAPS_EXTENSION"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("sprites")]
         public string SPRITES_DIRECTORY_NAME {
             get {
@@ -50,15 +32,24 @@ namespace GameWPF.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".sav")]
         public string SAVES_EXTENSION {
             get {
                 return ((string)(this["SAVES_EXTENSION"]));
             }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("maps")]
+        public string MAPS_DIRECTORY_NAME {
+            get {
+                return ((string)(this["MAPS_DIRECTORY_NAME"]));
+            }
             set {
-                this["SAVES_EXTENSION"] = value;
+                this["MAPS_DIRECTORY_NAME"] = value;
             }
         }
     }
