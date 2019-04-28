@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using GameWPF.GameLogic.GameRules;
-
-namespace GameWPF.GameLogic.GameRules
+namespace Core.GameLogic.GameRules
 {
     public enum Difficult
     {

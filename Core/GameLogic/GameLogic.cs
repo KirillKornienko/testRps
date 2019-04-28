@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using ImageDraw = System.Drawing;
-using Settings = GameWPF.Properties.Settings;
+﻿//using System.Windows.Media.Imaging;
 
 
-namespace GameWPF.GameLogic
+namespace Core.GameLogic
 {
     /*
     class GameLogic
@@ -904,7 +893,7 @@ namespace GameWPF.GameLogic
     }
     */
 
-    enum SurfaceTypes
+    public enum SurfaceTypes
     {
         NULL,
         ground,    // ground 

@@ -29,7 +29,7 @@ namespace GameWPF.MenuActions
         }
 
 
-        private void Menu_StartGameClicked(object sender, EventArgs e)
+        private void Menu_StartGameClicked()
         {
             DeleteElements(this, null);
 
@@ -44,7 +44,7 @@ namespace GameWPF.MenuActions
             actions.DeleteElements += (sender, event_args) => DeleteElements(sender, event_args);
         }
 
-        private void Menu_LoadGameClicked(object sender, EventArgs e)
+        private void Menu_LoadGameClicked()
         {
             DeleteElements(this, null);
 

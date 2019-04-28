@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-using GameWPF.GameLogic.GameRules;
+using Core.GameLogic.GameRules;
 
-namespace GameWPF.MapParams
+namespace Core.Maps.MapParams
 {
     public class MapParameters
     {

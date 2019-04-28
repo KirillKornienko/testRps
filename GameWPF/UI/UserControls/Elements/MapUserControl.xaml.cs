@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.IO;
 
-using GameWPF.MapParams;
+using Core.Maps.MapParams;
 using Settings = GameWPF.Properties.Settings;
 
 

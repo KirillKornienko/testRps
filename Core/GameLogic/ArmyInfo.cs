@@ -1,4 +1,4 @@
-﻿namespace GameWPF
+﻿namespace Core.GameLogic
 {
 public class ArmyInfo
     {

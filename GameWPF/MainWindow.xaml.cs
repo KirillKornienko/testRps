@@ -6,8 +6,6 @@ using System.Drawing;
 using Settings = GameWPF.Properties.Settings;
 using GameWPF.MenuActions;
 
-using GameWPF.GameLogic;
-
 namespace GameWPF
 {
     /// <summary>

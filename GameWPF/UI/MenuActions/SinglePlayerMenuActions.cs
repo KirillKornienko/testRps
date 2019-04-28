@@ -4,7 +4,7 @@ using System.IO;
 using GameWPF.UserControls;
 using GameWPF.UserControls.Elements;
 using GameWPF.MenuActions.Elements;
-using GameWPF.MapParams;
+using Core.Maps.MapParams;
 using Settings = GameWPF.Properties.Settings;
 
 
