@@ -4,5 +4,11 @@
 
 /.vs
 /GameWPF/obj
-/GameWPF/bin/Debug
+/GameWPF/bin
 /maps/TestMap (2).map
+/Core/bin
+/Core/obj
+/Core.Maps/bin
+/Core.Maps/obj
+/MapEditor/bin
+/MapEditor/obj
