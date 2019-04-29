@@ -74,6 +74,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="UI\MenuActions\Elements\MapAction.cs" />
+    <Compile Include="UI\MenuActions\HallOfFameActions.cs" />
     <Compile Include="UI\MenuActions\IActions.cs" />
     <Compile Include="UI\MenuActions\LoadGameMenuActions.cs" />
     <Compile Include="UI\MenuActions\MainMenuActions.cs" />
@@ -90,6 +91,9 @@
     <Compile Include="UI\UserControls\Enums.cs" />
     <Compile Include="UI\UserControls\GameUserControl.xaml.cs">
       <DependentUpon>GameUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\HallOfFameUserControl.xaml.cs">
+      <DependentUpon>HallOfFameUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\LoadGameUserControl.xaml.cs">
       <DependentUpon>LoadGameUserControl.xaml</DependentUpon>
@@ -125,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UserControls\GameUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\HallOfFameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

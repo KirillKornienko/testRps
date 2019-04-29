@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Collections.Generic;
-using System.Windows.Input;
 
 namespace GameWPF.UserControls
 {
@@ -48,49 +47,16 @@ namespace GameWPF.UserControls
                 button_img.MouseEnter += (obj, e) => SetImage((Image)obj, MouseActions.Enter);
                 button_img.MouseLeave += (obj, e) => SetImage((Image)obj, MouseActions.Leave);
                 button_img.MouseLeftButtonDown += (obj, e) => SetImage((Image)obj, MouseActions.Down);
+                button_img.MouseLeftButtonUp += (obj, e) => SetImage((Image)obj, MouseActions.Leave);
             }
 
-            SinglePlayer.MouseLeftButtonUp += SinglePlayer_MouseUp;
-            Multiplayer.MouseLeftButtonUp += Multiplayer_MouseUp;
-            Campaign.MouseLeftButtonUp += Campaign_MouseUp;
-            Guide.MouseLeftButtonUp += Guide_MouseUp;
-            BackToMainMenu.MouseLeftButtonUp += BackToMainMenu_MouseUp;
+            SinglePlayer.MouseLeftButtonUp += (obj, e) => SinglePlayerClicked();
+            Multiplayer.MouseLeftButtonUp += (obj, e) => MultiplayerClicked();
+            Campaign.MouseLeftButtonUp += (obj, e) => CampaignClicked();
+            Guide.MouseLeftButtonUp += (obj, e) => GuideClicked();
+            BackToMainMenu.MouseLeftButtonUp += (obj, e) => BackToMainMenuClicked();
         }
 
-        private void Campaign_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            CampaignClicked();
-        }
-
-        private void BackToMainMenu_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            BackToMainMenuClicked();
-        }
-
-        private void Guide_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            GuideClicked();
-        }
-
-        private void Multiplayer_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            MultiplayerClicked();
-        }
-
-        private void SinglePlayer_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            SinglePlayerClicked();
-        }
 
         private BitmapImage GetImage(Image button, MouseActions action)
         {

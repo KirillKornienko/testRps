@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GameWPF"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="GameWPF" Height="800" Width="1400" WindowStyle="None">
+        Title="GameWPF" WindowStyle="None">
     <Grid Name="grid">
     </Grid>
 </Window>

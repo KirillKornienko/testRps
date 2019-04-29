@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Collections.Generic;
-using System.Windows.Input;
 
 namespace GameWPF.UserControls
 {
@@ -13,6 +12,12 @@ namespace GameWPF.UserControls
     /// </summary>
     public partial class MenuUserControl : UserControl
     {
+        public event Action StartGameClicked;
+        public event Action LoadGameClicked;
+        public event Action HallOfFameClicked;
+        public event Action AboutClicked;
+
+
         private Dictionary<string, BitmapImage> get_BtmpImg;
 
         private Dictionary<Image, string> ImageKeysDict;
@@ -41,13 +46,14 @@ namespace GameWPF.UserControls
                 button_img.MouseEnter += (obj, e) => SetImage((Image)obj, MouseActions.Enter);
                 button_img.MouseLeave += (obj, e) => SetImage((Image)obj, MouseActions.Leave);
                 button_img.MouseLeftButtonDown += (obj, e) => SetImage((Image)obj, MouseActions.Down);
+                button_img.MouseLeftButtonUp += (obj, e) => SetImage((Image)obj, MouseActions.Leave);
             }
 
-            StartGame.MouseLeftButtonUp += StartGame_MouseUp;
-            LoadGame.MouseLeftButtonUp += LoadGame_MouseUp;
-            HallOfFame.MouseLeftButtonUp += HallOfFame_MouseUp;
-            About.MouseLeftButtonUp += About_MouseUp;
-            Quit.MouseLeftButtonUp += Quit_MouseUp;
+            StartGame.MouseLeftButtonUp += (obj, e) => StartGameClicked();
+            LoadGame.MouseLeftButtonUp += (obj, e) => LoadGameClicked();
+            HallOfFame.MouseLeftButtonUp += (obj, e) => HallOfFameClicked();
+            About.MouseLeftButtonUp += (obj, e) => AboutClicked();
+            Quit.MouseLeftButtonUp += (obj, e) => Application.Current.Shutdown();
         }
 
 
@@ -68,7 +74,7 @@ namespace GameWPF.UserControls
         private string GetSpriteName(Image button, MouseActions action)
         {
             char symbol;
-
+            
             if (action == MouseActions.Enter)
                 symbol = 'H';
             else if (action == MouseActions.Leave)
@@ -99,44 +105,6 @@ namespace GameWPF.UserControls
         }
 
 
-        private void StartGame_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            StartGameClicked();
-        }
-
-        private void LoadGame_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            LoadGameClicked();
-        }
-
-        private void HallOfFame_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            HallOfFameClicked();
-        }
-
-        private void About_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-
-            throw new NotImplementedException();
-        }
-
-        private void Quit_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SetImage((Image)sender, MouseActions.Leave);
-
-            Application.Current.Shutdown();
-        }
-
-
-
         private void LoadStdSprites()
         {
             foreach(var image in ImageKeysDict.Keys)
@@ -156,10 +124,5 @@ namespace GameWPF.UserControls
             ImageKeysDict.Add(Quit, "MMENUQT");
         }
 
-
-
-        public event Action StartGameClicked;
-        public event Action LoadGameClicked;
-        public event Action HallOfFameClicked;
     }
 }

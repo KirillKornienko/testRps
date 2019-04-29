@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
-using System.Drawing;
+using System.Windows.Controls;
 using Settings = GameWPF.Properties.Settings;
 using GameWPF.MenuActions;
 
@@ -20,10 +19,17 @@ namespace GameWPF
             Loaded += MainWindow_Loaded;
         }
 
-
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            string text = "SizeChanged, prev: " + e.PreviousSize.Height + "x" + e.PreviousSize.Width + " cur: " + e.NewSize.Height + "x" + e.NewSize.Width;
+            MessageBox.Show(text);
+        }
 
         private void MainWindow_Loaded(object sender, EventArgs e)
         {
+            SizeChanged += Window_SizeChanged;
+
+
             IActions menu_actions = new MainMenuActions();
 
             EventSubscription(menu_actions);
@@ -49,12 +55,12 @@ namespace GameWPF
             menu_actions.DeleteElements += DeleteElements;
         }
 
-        private void NewElement(object sender, System.Windows.Controls.UserControl new_element)
+        private void NewElement(UserControl new_element)
         {
             grid.Children.Add(new_element);
         }
 
-        private void DeleteElements(object sender, EventArgs e)
+        private void DeleteElements()
         {
             grid.Children.Clear();
         }

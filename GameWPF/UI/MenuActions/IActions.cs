@@ -3,14 +3,14 @@ using System.Windows.Controls;
 
 namespace GameWPF.MenuActions
 {
-    public delegate void EventAddElementHandler(object sender, UserControl new_element);
+    public delegate void EventAddElementHandler(UserControl new_element);
 
 
     public interface IActions
     {
         event EventAddElementHandler NewElement;
 
-        event EventHandler DeleteElements;
+        event Action DeleteElements;
 
         void Initialize();
     }
@@ -19,7 +19,7 @@ namespace GameWPF.MenuActions
     abstract class Actions : IActions
     {
         public abstract event EventAddElementHandler NewElement;
-        public abstract event EventHandler DeleteElements;
+        public abstract event Action DeleteElements;
 
         public abstract void Initialize();
 

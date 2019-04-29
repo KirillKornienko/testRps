@@ -7,7 +7,7 @@ namespace GameWPF.MenuActions
     sealed class LoadGameMenuActions : Actions
     {
         public override event EventAddElementHandler NewElement;
-        public override event EventHandler DeleteElements;
+        public override event Action DeleteElements;
 
         private LoadGameUserControl menu;
         private Actions back_action;
@@ -23,7 +23,7 @@ namespace GameWPF.MenuActions
 
             EventsSubscription();
 
-            NewElement(this, menu);
+            NewElement(menu);
         }
 
         protected override void EventsSubscription()
@@ -33,13 +33,13 @@ namespace GameWPF.MenuActions
 
         protected override void NewElementSubscription(IActions actions)
         {
-            actions.NewElement += (sender, new_element) => NewElement(sender, new_element);
-            actions.DeleteElements += (sender, event_args) => DeleteElements(sender, event_args);
+            actions.NewElement += (new_element) => NewElement(new_element);
+            actions.DeleteElements += () => DeleteElements();
         }
 
         public override void Returned()
         {
-            NewElement(this, menu);
+            NewElement(menu);
         }
     }
 }
