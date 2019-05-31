@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;StandartInheritanceModel</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -73,6 +73,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UI\MenuActions\NewMenuActions.cs" />
+    <Compile Include="UI\UserControls\MainMenuUC16x10.xaml.cs">
+      <DependentUpon>MainMenuUC16x10.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MenuActions\Elements\MapAction.cs" />
     <Compile Include="UI\MenuActions\HallOfFameActions.cs" />
     <Compile Include="UI\MenuActions\IActions.cs" />
@@ -98,6 +102,12 @@
     <Compile Include="UI\UserControls\LoadGameUserControl.xaml.cs">
       <DependentUpon>LoadGameUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\MainMenuUC16x9.xaml.cs">
+      <DependentUpon>MainMenuUC16x9.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\MainMenuUC4x3.xaml.cs">
+      <DependentUpon>MainMenuUC4x3.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\MenuUserControl.xaml.cs">
       <DependentUpon>MenuUserControl.xaml</DependentUpon>
     </Compile>
@@ -120,6 +130,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\UserControls\MainMenuUC16x10.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\UserControls\Elements\MapUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +151,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UserControls\LoadGameUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\MainMenuUC16x9.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\MainMenuUC4x3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,15 +4,13 @@ using GameWPF.UserControls;
 
 namespace GameWPF.MenuActions
 {
-    sealed class LoadGameMenuActions : Actions
+    sealed class LoadGameMenuActions : Actions<LoadGameUserControl>
     {
         public override event EventAddElementHandler NewElement;
         public override event Action DeleteElements;
 
-        private LoadGameUserControl menu;
-        private Actions back_action;
 
-        public LoadGameMenuActions(Actions back_action)
+        public LoadGameMenuActions(IActions back_action)
         {
             this.back_action = back_action;
         }

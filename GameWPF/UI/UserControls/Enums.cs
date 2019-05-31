@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace GameWPF.UserControls
 {
     public enum MouseActions
@@ -11,7 +6,19 @@ namespace GameWPF.UserControls
         Enter,
         Leave,
         Down
-
     }
 
+    public enum MenuType
+    {
+        MainMenu,
+        StartGame,
+        LoadGame
+    }
+
+    public enum AspectRatio
+    {
+        _4x3,
+        _16x9,
+        _16x10
+    }
 }

@@ -4,13 +4,12 @@ using GameWPF.UserControls;
 
 namespace GameWPF.MenuActions
 {
-    sealed class MainMenuActions : Actions
+    sealed class MainMenuActions : Actions<MenuUserControl>
     {
         public override event EventAddElementHandler NewElement;
 
         public override event Action DeleteElements;
 
-        private MenuUserControl menu;
 
         public override void Initialize()
         {

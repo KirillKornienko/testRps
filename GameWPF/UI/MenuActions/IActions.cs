@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define StandartInheritanceModel
+
+using System;
 using System.Windows.Controls;
 
 namespace GameWPF.MenuActions
@@ -13,40 +15,42 @@ namespace GameWPF.MenuActions
         event Action DeleteElements;
 
         void Initialize();
+
+        void Returned();
     }
 
-#if StandartInheritanceModel
-    abstract class Actions : IActions
+    abstract class Actions<T> : IActions where T: UserControl
     {
         public abstract event EventAddElementHandler NewElement;
         public abstract event Action DeleteElements;
 
         public abstract void Initialize();
 
-        //protected UserControl menu;
+        public abstract void Returned();
+
+        protected T menu;
+
+        protected IActions back_action;
 
         protected abstract void EventsSubscription();
 
         protected abstract void NewElementSubscription(IActions actions);
-
-        public abstract void Returned();
     }
 
-#else
-    // Попытка сделать более правильную модель наследования, реализующая шаблонные функции
 
-    abstract class Actions<T> : IActions where T : UserControl, new()
+    // Попытка сделать более правильную модель наследования, реализующая шаблонные функции
+    public class Actions2<T> : IActions where T : UserControl, new()
     {
-        public abstract event EventAddElementHandler NewElement;
-        public abstract event EventHandler DeleteElements;
+        public event EventAddElementHandler NewElement;
+        public event Action DeleteElements;
 
         protected T menu;
 
-        public Actions<T> back_action;
+        protected IActions back_action;
 
-        protected Actions(Actions<T> back_action2) 
+        protected Actions2(IActions back_action) 
         {
-            this.back_action = back_action2;
+            this.back_action = back_action;
         }
 
         public void Initialize()
@@ -55,36 +59,44 @@ namespace GameWPF.MenuActions
 
             EventsSubscription();
 
-            NewElement(this, menu);
+            NewElement(menu);
         }
 
+        protected void InitializeChildElement(IActions new_element) 
+        {
+            DeleteElements();
 
-        protected abstract void EventsSubscription();
+            NewElementSubscription(new_element);
+            new_element.Initialize();
+        }
+
+        protected virtual void EventsSubscription()
+        {
+            throw new Exception("Метод не переопределён");
+        }
 
         protected void NewElementSubscription(IActions actions)
         {
-            actions.NewElement += (sender, new_element) => NewElement(sender, new_element);
-            actions.DeleteElements += (sender, event_args) => DeleteElements(sender, event_args);
+            actions.NewElement += (new_element) => NewElement(new_element);
+            actions.DeleteElements += () => DeleteElements();
         }
 
-        protected void Returned()
+        public void Returned()
         {
-            NewElement(this, menu);
-            
+            DeleteElements();
+            NewElement(menu);
         }
 
         protected void BackClicked(object sender, EventArgs e)
         {
             if (back_action != null)
             {
-                DeleteElements(this, null);
+                DeleteElements();
 
                 back_action.Returned();
-
             }
         }
 
     }
 
-#endif
 }

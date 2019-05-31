@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//#define STANDART_MENU_MODEL
+
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using Settings = GameWPF.Properties.Settings;
@@ -29,13 +30,18 @@ namespace GameWPF
         {
             SizeChanged += Window_SizeChanged;
 
-
+#if STANDART_MENU_MODEL
             IActions menu_actions = new MainMenuActions();
 
             EventSubscription(menu_actions);
 
             menu_actions.Initialize();
+#else
+            IActions main_menu = new NewMenuActions(UserControls.AspectRatio._4x3);
+            EventSubscription(main_menu);
+            main_menu.Initialize();
 
+#endif
 
             //VisibleInfo.Max_width = (int)grid.ActualWidth / 64;        // !!Сетка не изменяется при изменении разрешения!!
             //VisibleInfo.Max_height = (int)grid.ActualHeight / 64;

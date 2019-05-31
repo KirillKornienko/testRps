@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="GameWPF.UserControls.MainMenuUC4x3"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GameWPF.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="1200" d:DesignWidth="1600">
+    <Grid x:Name="grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://application:,,,/data/bitmaps/CREDITS_HD_x2.png"/>
+        </Grid.Background>
+        
+        <Image Name="Button1" Grid.Column="1" Grid.Row="1"/>
+        <Image Name="Button2" Grid.Column="1" Grid.Row="2"/>
+        <Image Name="Button3" Grid.Column="1" Grid.Row="3"/>
+        <Image Name="Button4" Grid.Column="1" Grid.Row="4"/>
+        <Image Name="Button5" Grid.Column="1" Grid.Row="5"/>
+
+    </Grid>
+</UserControl>

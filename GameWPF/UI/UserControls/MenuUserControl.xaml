@@ -27,6 +27,7 @@
                 <BitmapImage UriSource="pack://siteoforigin:,,,/data/bitmaps/CREDITS_HD_x2.png"/>
             </Image.Source>
         </Image>
+
         <Image Name="StartGame" Grid.Column="1" Grid.Row="1"/>
         <Image Name="LoadGame" Grid.Column="1" Grid.Row="2"/>
         <Image Name="HallOfFame" Grid.Column="1" Grid.Row="3"/>

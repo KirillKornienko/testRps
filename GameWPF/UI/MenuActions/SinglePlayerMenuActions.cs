@@ -10,17 +10,15 @@ using Settings = GameWPF.Properties.Settings;
 
 namespace GameWPF.MenuActions
 {
-    sealed class SinglePlayerMenuActions : Actions
+    sealed class SinglePlayerMenuActions : Actions<SinglePlayerUserControl>
     {
         public override event EventAddElementHandler NewElement;
         public override event Action DeleteElements;
 
-        private SinglePlayerUserControl menu;
-        private Actions back_action;
 
         private MapElementActions selected_map;
 
-        public SinglePlayerMenuActions(Actions back_action)
+        public SinglePlayerMenuActions(IActions back_action)
         {
             this.back_action = back_action;
         }
