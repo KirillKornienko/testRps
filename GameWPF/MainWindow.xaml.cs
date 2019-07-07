@@ -1,4 +1,4 @@
-﻿//#define STANDART_MENU_MODEL
+﻿#define STANDART_MENU_MODEL
 
 using System;
 using System.Windows;

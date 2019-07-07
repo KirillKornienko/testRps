@@ -95,8 +95,6 @@ namespace GameWPF.UserControls
             else
                 symbol = 'S';
 
-            string sa = $"fdsf {symbol}"
-
             return ImageKeysDict[button] + symbol;
         }
 

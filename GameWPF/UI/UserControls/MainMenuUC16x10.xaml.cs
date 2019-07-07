@@ -18,7 +18,7 @@ namespace GameWPF.UserControls
     /// <summary>
     /// Логика взаимодействия для MainMenuUC16x10.xaml
     /// </summary>
-    public partial class MainMenuUC16x10 : MainMenuUC4x3
+    public partial class MainMenuUC16x10 : UserControl
     {
         public MainMenuUC16x10()
         {

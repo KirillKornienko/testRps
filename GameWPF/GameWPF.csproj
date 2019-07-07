@@ -73,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UI\AspectRatioController.cs" />
     <Compile Include="UI\MenuActions\NewMenuActions.cs" />
     <Compile Include="UI\UserControls\MainMenuUC16x10.xaml.cs">
       <DependentUpon>MainMenuUC16x10.xaml</DependentUpon>
