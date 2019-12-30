@@ -1,10 +1,10 @@
 ﻿
 namespace Core.Maps.Properties
 {
-    struct Properties
+    public struct Properties
     {
         internal const string MAPS_EXTENSION = ".map";
 
-        internal const string MAPS_DIR_NAME = "maps";
+        public const string MAPS_DIR_NAME = "maps";
     }
 }

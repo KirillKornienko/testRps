@@ -6,6 +6,7 @@ using ImageDraw = System.Drawing;
 
 namespace Core.GameLogic
 {
+#if Drawing
     class TextureController
     {
         Dictionary<SurfaceTypes, ImageDraw.Image> SurfaceTextures;
@@ -38,4 +39,5 @@ namespace Core.GameLogic
         }
 
     }
+#endif
 }

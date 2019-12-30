@@ -3,7 +3,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using Settings = GameWPF.Properties.Settings;
+using static GameWPF.Properties.Properties;
 using GameWPF.MenuActions;
 
 namespace GameWPF

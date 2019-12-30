@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.IO;
 
 using Core.Maps.MapParams;
-using Settings = GameWPF.Properties.Settings;
+using static Core.Maps.Properties.Properties;
 
 
 namespace GameWPF.UserControls.Elements
@@ -33,7 +33,7 @@ namespace GameWPF.UserControls.Elements
 
         public void SetContent(MapParameters parameters)
         {
-            if (!parameters.IsFolder())
+            if (!parameters.IsFolder)
             {
                 ScenarioName.Content = parameters.Basic.scenario_name;
                 PlayersValue.Content = parameters.Basic.players_value;
@@ -44,7 +44,7 @@ namespace GameWPF.UserControls.Elements
             else
             {
                 string name = Path.GetFileName(parameters.Basic.scenario_name);
-                if (name == Settings.Default.MAPS_DIRECTORY_NAME)
+                if (name == MAPS_DIR_NAME)
                 {
                     ScenarioName.Content = "...";
                 }

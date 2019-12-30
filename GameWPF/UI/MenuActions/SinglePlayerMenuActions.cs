@@ -5,7 +5,7 @@ using GameWPF.UserControls;
 using GameWPF.UserControls.Elements;
 using GameWPF.MenuActions.Elements;
 using Core.Maps.MapParams;
-using Settings = GameWPF.Properties.Settings;
+using static Core.Maps.Properties.Properties;
 
 
 namespace GameWPF.MenuActions
@@ -76,7 +76,7 @@ namespace GameWPF.MenuActions
 
         public void FillMapList(string directory = null)
         {
-            if (directory != null && directory != Settings.Default.MAPS_DIRECTORY_NAME)
+            if (directory != null && directory != MAPS_DIR_NAME)
                 new MapElementActions(this, GetReturnedElement(directory));
 
             foreach (var map in MapList.GetMapList(directory))
