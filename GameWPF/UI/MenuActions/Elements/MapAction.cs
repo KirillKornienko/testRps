@@ -44,7 +44,7 @@ namespace GameWPF.MenuActions.Elements
 
         private void UI_element_Clicked(object sender, EventArgs e)
         {
-            if(!parameters.IsFolder())
+            if(!parameters.IsFolder)
             {
                 parameters.GetAdvancedParams();
 
@@ -54,7 +54,7 @@ namespace GameWPF.MenuActions.Elements
 
         private void UI_element_DoubleClicked(object sender, EventArgs e)
         {
-            if (parameters.IsFolder())
+            if (parameters.IsFolder)
             {
                 parent.ClearMapElements();
 

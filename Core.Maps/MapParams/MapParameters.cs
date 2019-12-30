@@ -45,9 +45,11 @@ namespace Core.Maps.MapParams
             return new MapParameters(BasicMapParams.GetDirectoryBasicParams(filepath));
         }
 
-        public bool IsFolder()
+        public bool IsFolder
         {
-            return Basic.players_value == 0;
+            get {
+                return Basic.players_value == 0;
+            }
         }
     }
 

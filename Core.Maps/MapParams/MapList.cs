@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-using Settings = Core.Maps.Properties.Settings;
+using static Core.Maps.Properties.Properties;
 
 namespace Core.Maps.MapParams
 {
@@ -9,7 +9,7 @@ namespace Core.Maps.MapParams
     {
         public static List<MapParameters> GetMapList(string directory = null)
         {
-            string directory_name = directory ?? Settings.Default.MAPS_DIRECTORY_NAME;
+            string directory_name = directory ?? MAPS_DIR_NAME;
 
             List<MapParameters> map_list = new List<MapParameters>();
 
@@ -20,7 +20,7 @@ namespace Core.Maps.MapParams
 
             foreach (var file in Directory.GetFiles(directory_name))
             {
-                if (Path.GetExtension(file) == Settings.Default.MAPS_EXTENSION)
+                if (Path.GetExtension(file) == MAPS_EXTENSION)
                     map_list.Add(new MapParameters(new MapRWStream(file)).GetBasicParams());
             }
             return map_list;
